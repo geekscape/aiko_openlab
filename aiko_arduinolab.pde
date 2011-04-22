@@ -30,6 +30,7 @@ using namespace Aiko;
 
 void setup() {
   Serial.begin(38400);
+  Serial.println("[ArduinoLab 2011-04-22]");
 }
 
 void loop() {
