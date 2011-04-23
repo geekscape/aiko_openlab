@@ -3,6 +3,7 @@
  * Please do not remove the following notices.
  * License: GPLv3. http://geekscape.org/static/arduino_license.html
  * Version: 0.0
+ *
  * Documentation:  http://geekscape.github.com/aiko_arduinolab
  * Documentation:  https://github.com/lukeweston/ArduinoLab   # Hardware design
  * ----------------------------------------------------------------------------
@@ -21,7 +22,16 @@
  *
  * To Do
  * ~~~~~
- * - None, yet.
+ * - Include file with ArduinoLab pin assignments.
+ * - Break into mutiple files for collaborative development.
+ * - Multiple screens with title.
+ *   - Multimeter: Voltage and frequency input and output on each channel.
+ *   - Waveform display: Simple oscilloscope.
+ *   - Waveform generator.
+ *   - Ruben's Tube and EEG projects.
+ * - Navigation between screens using PC input.
+ * - Navigation between screens using 6-way button board.
+ * - Communications to PC (over ZigBee).
  *
  * Notes
  * ~~~~~
@@ -35,40 +45,43 @@
 
 using namespace Aiko;
 
+#include "cchs_logo.h"
+
 void setup() {
   Serial.begin(38400);
 
-  pinMode(3, OUTPUT);     // Turn on LCD backlight
-  digitalWrite(3, HIGH);  // Paul's prototype hardware
-
   GLCD.Init();
-  GLCD.ClearScreen();
   GLCD.SelectFont(System5x7);
 
-//Events.addHandler(clockHandler, 1000);
+  Events.addHandler(clockHandler, 1000);
 }
-
-unsigned long startMillis;
-unsigned int iter = 0;
 
 void loop() {
   Events.loop();
 
-  startMillis = millis();
+  displaySplashScreen(cchs_logo);
+  delay(100);
+}
 
-  while (millis() - startMillis < 1000) {
-    GLCD.DrawRect(0, 0, 64, 61, BLACK);
-    GLCD.DrawRoundRect(68, 0, 58, 61, 5, BLACK);
+/* ------------------------------------------------------------------------- */
 
-    for (int i = 0;  i < 62;  i += 4) {
-      GLCD.DrawLine(1, 1, 63, i, BLACK);
-    }
+void displaySplashScreen(
+  Image_t icon) {
 
-    GLCD.DrawCircle(32, 31, 30, BLACK);
-    GLCD.FillRect(92, 40, 16, 16, WHITE);
-    GLCD.CursorTo(5, 5);
-    GLCD.PrintNumber(++ iter);
-  }
+  GLCD.ClearScreen();
+  GLCD.DrawBitmap(icon, 0, 0);
+  GLCD.CursorToXY(68,  0);  GLCD.print("ArduinoLab");
+  GLCD.CursorToXY(86, 20);  GLCD.print("GGHC");
+  GLCD.CursorToXY(86, 36);  GLCD.print("2011");
+  GLCD.CursorToXY(26, 56);  GLCD.print("hackmelbourne.org");
+}
+
+/* ------------------------------------------------------------------------- */
+
+int secondCounter = 0;
+
+void clockHandler(void) {
+  ++ secondCounter;
 }
 
 /* ------------------------------------------------------------------------- */
