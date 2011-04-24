@@ -22,8 +22,7 @@
  *
  * To Do
  * ~~~~~
- * - Include file with ArduinoLab pin assignments.
- * - Break into mutiple files for collaborative development.
+ * - Break into multiple files for collaborative development.
  * - Multiple screens with title.
  *   - Multimeter: Voltage and frequency input and output on each channel.
  *   - Waveform display: Simple oscilloscope.
@@ -45,6 +44,7 @@
 
 using namespace Aiko;
 
+#include "aiko_arduinolab.h"
 #include "cchs_logo.h"
 
 void setup() {
