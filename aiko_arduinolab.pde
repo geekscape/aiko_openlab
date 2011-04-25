@@ -42,13 +42,11 @@
 using namespace Aiko;
 
 #include "aiko_arduinolab.h"
-#include "cchs_logo.h"
 
 void setup(void) {
-  displaySplashScreen(cchs_logo);
-
   Events.addHandler(clockHandler,           1000);
   Events.addHandler(serialTestInputHandler,  100);
+  Events.addHandler(screenOutputHandler,     100);
 }
 
 void loop(void) {
