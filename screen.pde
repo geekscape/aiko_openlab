@@ -127,17 +127,18 @@ void displayScreen2() {
             "for generating wave "
             "forms that can be   "
             "output as sound via "
-            "the speaker output  "
-            " 123456789 123456789 ";
+            "the speaker output  ";
 
   setupScreen2(); 
-  textArea.DefineArea(textAreaGRAPH);
+  textArea.DefineArea(textAreaHELP);
   textArea.SetFontColor(BLACK); 
   textArea.ClearArea(); 
   textArea.print(help_text);
-  delay(4000);
-
+  delay(8000);
+  textArea.DefineArea(textAreaGRAPH);
+  textArea.SetFontColor(BLACK); 
   textArea.ClearArea(); 
+
   setPotValue(textAreaPOTVAL1,   "2", "Mhz", BLACK, true);
   setPotValue(textAreaPOTVAL2, "500",  "mA", BLACK, true);
 }
@@ -164,19 +165,19 @@ void displayScreen3() {
 
 void setupScreen1() {
   GLCD.ClearScreen();
-  textArea.DefineArea(textAreaGRAPH);
-  textArea.SetFontColor(BLACK); 
-  textArea.ClearArea();
+  //textArea.DefineArea(textAreaGRAPH);
+  //textArea.SetFontColor(BLACK); 
+  //textArea.ClearArea();
 
   textArea.SelectFont(System5x7);
 
-  textArea.DefineArea(0, 0, DISPLAY_WIDTH, DISPLAY_HEIGHT - 12);
+  textArea.DefineArea(0, 0, DISPLAY_WIDTH -1, DISPLAY_HEIGHT - 10);
   textArea.SetFontColor(BLACK); 
   textArea.ClearArea(); 
 
-  textArea.DefineArea(0, DISPLAY_HEIGHT - 11, DISPLAY_WIDTH, DISPLAY_HEIGHT);
-  textArea.SetFontColor(BLACK); 
-  textArea.ClearArea(); 
+  //textArea.DefineArea(0, DISPLAY_HEIGHT - 11, DISPLAY_WIDTH, DISPLAY_HEIGHT);
+  //textArea.SetFontColor(BLACK); 
+  //textArea.ClearArea(); 
   
   textArea.DefineArea(0, DISPLAY_HEIGHT - 9, 18, DISPLAY_HEIGHT);
   textArea.SetFontColor(WHITE); 
@@ -194,8 +195,11 @@ void setupScreen1() {
 /* ------------------------------------------------------------------------- */
 
 void setupScreen2() {
-  GLCD.ClearScreen(); 
-  textArea.DefineArea(textAreaGRAPH);
+  GLCD.ClearScreen();
+  setLabel(textAreaSCRTTLBDR,"",WHITE,true);
+  setLabel(textAreaSCRTTL,"2 - Wave Generator",WHITE,false);
+
+  textArea.DefineArea(textAreaHELP);
   textArea.SetFontColor(BLACK); 
   textArea.ClearArea();
 
