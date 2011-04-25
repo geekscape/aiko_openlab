@@ -8,10 +8,10 @@ typedef enum  {
 	textAreaGRAPH = MK_TareaToken(0, 0, DISPLAY_WIDTH - 1, DISPLAY_HEIGHT - 10),
 
 	/**<Screen Title */
-	textAreaSCRTTLBDR = MK_TareaToken(0, 0, DISPLAY_WIDTH - 1, 9),
+	textAreaSCRTTLBDR = MK_TareaToken(0, 0, DISPLAY_WIDTH - 1, 8),
 
 	/**<Screen Title Border*/
-	textAreaSCRTTL = MK_TareaToken(1, 1, DISPLAY_WIDTH - 1, 8),
+	textAreaSCRTTL = MK_TareaToken(1, 1, DISPLAY_WIDTH - 1, 7),
 
 	/**<Screen Instructions area */
 	textAreaHELP = MK_TareaToken(0, 10, DISPLAY_WIDTH - 1, DISPLAY_HEIGHT - 10),
