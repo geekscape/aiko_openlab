@@ -28,7 +28,6 @@
  *   - Waveform display: Simple oscilloscope.
  *   - Waveform generator.
  *   - Ruben's Tube and EEG projects.
- * - Navigation between screens using PC input.
  * - Navigation between screens using 6-way button board.
  * - Communications to PC (over ZigBee).
  *
@@ -47,26 +46,32 @@ using namespace Aiko;
 #include "aiko_arduinolab.h"
 #include "cchs_logo.h"
 
-void setup() {
-  Serial.begin(38400);
+void setup(void) {
+  displaySplashScreen(cchs_logo);
 
-  GLCD.Init();
-  GLCD.SelectFont(System5x7);
-
-  Events.addHandler(clockHandler, 1000);
+  Events.addHandler(clockHandler,           1000);
+  Events.addHandler(serialTestInputHandler,  100);
 }
 
-void loop() {
+void loop(void) {
   Events.loop();
-
-  displaySplashScreen(cchs_logo);
-  delay(100);
 }
 
 /* ------------------------------------------------------------------------- */
 
+byte screenInitialized = false;
+
+void screenInitialize(void) {
+  GLCD.Init();
+  GLCD.SelectFont(System5x7);
+
+  screenInitialized = true;
+}
+
 void displaySplashScreen(
   Image_t icon) {
+
+  if (! screenInitialized) screenInitialize();
 
   GLCD.ClearScreen();
   GLCD.DrawBitmap(icon, 0, 0);

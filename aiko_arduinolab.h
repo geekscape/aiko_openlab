@@ -9,6 +9,8 @@
  * None, yet !
  */
 
+const long DEFAULT_BAUD_RATE = 38400;
+
 // Digital Input/Output pins
 
 const int PIN_SERIAL_RX        =  0;  // In:  USB or ZigBee receive
