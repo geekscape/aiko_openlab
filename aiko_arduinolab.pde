@@ -37,6 +37,7 @@
  */
 
 #include <glcd.h>
+#include "textAreas.h"
 
 #include <AikoEvents.h>
 using namespace Aiko;
@@ -53,6 +54,11 @@ void setup(void) {
 
 void loop(void) {
   Events.loop();
+  
+  //Serial.println("displayDemo Call");
+  displayDemo();
+  //Serial.println("displayDemo Exit"); 
+  
 }
 
 /* ------------------------------------------------------------------------- */
