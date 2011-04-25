@@ -1,5 +1,5 @@
 /* serial.pde
- * ~~~~~~~~~~~~~~~
+ * ~~~~~~~~~~
  * Please do not remove the following notices.
  * License: GPLv3. http://geekscape.org/static/arduino_license.html
  * ----------------------------------------------------------------------------
