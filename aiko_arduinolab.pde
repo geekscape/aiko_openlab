@@ -28,6 +28,7 @@
  *   - Waveform display: Simple oscilloscope.
  *   - Waveform generator.
  *   - Ruben's Tube and EEG projects.
+ *   - Battery charge screen ?
  * - Navigation between screens using 6-way button board.
  * - Communications to PC (over ZigBee).
  *
