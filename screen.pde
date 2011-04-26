@@ -6,7 +6,7 @@
  *
  * To Do
  * ~~~~~
- * - Use text areas, e.g. gText.DefineArea() ?
+ * - Provide a "textarea" table to avoid duplication of dimension parameters.
  * - Only clear screen as required, use a flag
  * - Only render screen as required, if an event has occurred ?
  * - Only display title/menu as required, up-to 10 seconds after screen change ?
@@ -24,9 +24,9 @@ struct screenType {
 };
 
 const struct screenType screens[] = {
-  "1] Power Supply", screenRenderTest1,
-//"2] Screen 2",     screenRenderTest2,
-//"3] Screen 3",     screenRenderTest3
+  "1] Power Supply",   screenRenderTest1,
+  "2] Wave Generator", screenRenderTest2,
+//"3] Screen 3",       screenRenderTest3
 };
 
 const byte screenCount = sizeof(screens) / sizeof(screenType);
@@ -43,8 +43,9 @@ void screenInitialize(void) {
   displaySplashScreen(cchs_logo);
 }
 
-void screenChangeHandler(void) {
+void screenChangeHandler(void) {      // TODO: Temporary until navigation works
   currentScreen = (currentScreen + 1) % screenCount;
+  screenChange = true;
 }
 
 void screenOutputHandler(void) {
@@ -91,21 +92,45 @@ void displayTitle(char *title) {              // TODO: title should use PROGMEM
  */
 
 void screenRenderTest1() {
+  if (screenChange) {
+    drawString("Volt", WHITE,  0, 55, 32);
+    drawString("Amp",  WHITE, 64, 55, 32);
+  }
+
+  drawString("3.3V", BLACK, 32, 55, 32);
+  drawString("1.5A", BLACK, 95, 55, 32);        // TODO: Used "95", not "96" :(
+}
+
+/* ------------------------------------------------------------------------- */
+/* Wave generation screen
+ */
+
+PROGSTRING(sHelp2) = "This screen is used  "
+                     "for generating wave  "
+                     "forms that can be    "
+                     "produced as sound via"
+                     "the speaker output";
+
+void screenRenderTest2() {
   gText textArea;
 
   if (screenChange) {
-    drawLabel("Volt", WHITE,  0, 55, 32);
-    drawLabel("Amp",  WHITE, 64, 55, 32);
+    textArea.DefineArea(0, 10, GLCD.Width-1, 54);
+    textArea.SelectFont(font, BLACK);
+    textArea.DrawString_P(sHelp2, 0, 0);
+
+    drawString("Freq", WHITE,  0, 55, 32);
+    drawString("Amp",  WHITE, 64, 55, 32);
   }
 
-  drawLabel("3.3V", BLACK, 32, 55, 32);
-  drawLabel("1.5A", BLACK, 95, 55, 32);   // TODO: Had to use "95", not "96" :(
+  drawString("2 KHz",  BLACK, 32, 55, 32);
+  drawString("50 mA", BLACK, 95, 55, 32);      // TODO: Used "95", not "96" :(
 }
 
 /* ------------------------------------------------------------------------- */
 
-void drawLabel(
-  char     *label,                            // TODO: label should use PROGMEM
+void drawString(
+  char     *value,                            // TODO: value should use PROGMEM
   uint8_t   colour,
   byte      x,
   byte      y,
@@ -116,7 +141,7 @@ void drawLabel(
   textArea.DefineArea(x, y, x + w, y + 8);
   textArea.SelectFont(font, colour);
   textArea.ClearArea();
-  textArea.DrawString(label, 1, 1);
+  textArea.DrawString(value, 1, 1);
 }
 
 /* ------------------------------------------------------------------------- */
@@ -134,71 +159,24 @@ void drawLabel(
   textAreaPOTVALBDR2 = MK_TareaToken(83, DISPLAY_HEIGHT-9, 127, DISPLAY_HEIGHT),
   textAreaPOTVAL2 = MK_TareaToken(85, DISPLAY_HEIGHT-8, 127, DISPLAY_HEIGHT-1),
 
-void displayScreen2() {
-  char *help_text="This screen is used "
-            "for generating wave "
-            "forms that can be   "
-            "output as sound via "
-            "the speaker output  ";
-
-  setupScreen2(); 
-  textArea.DefineArea(textAreaHELP);
-  textArea.SetFontColor(BLACK); 
-  textArea.ClearArea(); 
-  textArea.print(help_text);
-  delay(8000);
-  textArea.DefineArea(textAreaGRAPH);
-  textArea.SetFontColor(BLACK); 
-  textArea.ClearArea(); 
-
-  setPotValue(textAreaPOTVAL1,   "2", "Mhz", BLACK, true);
-  setPotValue(textAreaPOTVAL2, "500",  "mA", BLACK, true);
-}
- */
-
-/* ------------------------------------------------------------------------- */
-/*
-void setupScreen2() {
-  GLCD.ClearScreen();
-  setLabel(textAreaSCRTTLBDR,"",WHITE,true);
-  setLabel(textAreaSCRTTL,"2 - Wave Generator",WHITE,false);
-
-  textArea.DefineArea(textAreaHELP);
-  textArea.SetFontColor(BLACK); 
-  textArea.ClearArea();
-
-  setLabel(textAreaPOTLBLBDR1,"",WHITE,true);
-  setLabel(textAreaPOTLBL1,"FRQ",WHITE,false);
-  setLabel(textAreaPOTVALBDR1,"",BLACK,true);
-  setLabel(textAreaPOTLBLBDR2,"",WHITE,true);
-  setLabel(textAreaPOTLBL2,"AMP",WHITE,false);
-  setLabel(textAreaPOTVALBDR2,"",BLACK,true);
-}
- */
-
-/* ------------------------------------------------------------------------- */
-/*
 void displayScreen3() {
-  setupScreen3(); 
+  setupScreen3();
   setPotValue(textAreaPOTVAL1, "2000", "Khz", BLACK, true);
   setPotValue(textAreaPOTVAL2, "1500", "mA", BLACK, true);
   textArea.DefineArea(textAreaGRAPH);
-  textArea.SetFontColor(BLACK); 
+  textArea.SetFontColor(BLACK);
 
-  textArea.ClearArea(); 
+  textArea.ClearArea();
   textArea.print("This screen is used for generating wave forms");
   delay(4000);
 
-  textArea.ClearArea(); 
+  textArea.ClearArea();
 }
- */
 
-/* ------------------------------------------------------------------------- */
-/*
 void setupScreen3() {
-  GLCD.ClearScreen(); 
+  GLCD.ClearScreen();
   textArea.DefineArea(textAreaGRAPH);
-  textArea.SetFontColor(BLACK); 
+  textArea.SetFontColor(BLACK);
   textArea.ClearArea();
 
   setLabel(textAreaPOTLBLBDR1,"",WHITE,true);
@@ -207,27 +185,6 @@ void setupScreen3() {
   setLabel(textAreaPOTLBLBDR2,"",WHITE,true);
   setLabel(textAreaPOTLBL2,"AMP",WHITE,false);
   setLabel(textAreaPOTVALBDR2,"",BLACK,true);
-}
- */
-
-/* ------------------------------------------------------------------------- */
-/*
-void setPotValue(
-  predefinedLABArea area,
-  char * value,
-  char * units,
-  uint8_t color,
-  boolean cleararea) {
-
-  textArea.DefineArea(area);
-
-  textArea.SetFontColor(color);
-
-  if (cleararea) textArea.ClearArea();
-
-  if (value != "") textArea.print(value);
-
-  if (units != "") textArea.print(units);
 }
  */
 
@@ -242,7 +199,7 @@ void scribble(
 
   const float tick = 1 / 128.0;
   float g_head_pos = 0.0;
-  
+ 
   for (unsigned long start = millis();  millis() - start < duration; ) {
     g_head_pos += tick;
 
@@ -256,7 +213,7 @@ void scribble(
 
     // clear the pixel at the 'tail' of the line...
     x = fn_x(tail);
-    y = fn_y(tail);  
+    y = fn_y(tail); 
     GLCD.SetDot(x, y, WHITE);
   }
 }
