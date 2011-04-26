@@ -6,9 +6,10 @@
  *
  * To Do
  * ~~~~~
+ * - Use text areas, e.g. gText.DefineArea() ?
  * - Only clear screen as required, use a flag
  * - Only render screen as required, if an event has occurred ?
- * - Only update title/menu as required, up-to 10 seconds after screen change ?
+ * - Only display title/menu as required, up-to 10 seconds after screen change ?
  */
 
 #include <glcd.h>
@@ -21,7 +22,6 @@ gLABText textArea;             // a text area to be defined later in the sketch
 
 uint8_t NIL = 0x9E;     // Value to pass if no colour desired (not BLACK/WHITE)
 char* help_text="";     // hold instruction/ help text to display on screen
-static int  iscreen=0;  // Screen demo routine counter
 // <<< PZ end
 
 #include "cchs_logo.h"
@@ -32,7 +32,9 @@ struct screenType {
 };
 
 const struct screenType screens[] = {
-  "Test", screenRenderTest
+  "Screen 1", screenRenderTest1,
+//"Screen 2", screenRenderTest2,
+//"Screen 3", screenRenderTest3
 };
 
 byte currentScreen = 0;
@@ -55,51 +57,40 @@ void screenOutputHandler() {
     screens[currentScreen].render();
 
     displayTitle(screens[currentScreen].title);
-//  displayMenu() ?
+//  displayMenu(); ?
   }
 }
+
+PROGSTRING(sArduinoLab) = "ArduinoLab";
+PROGSTRING(sGGHC) = "GGHC";
+PROGSTRING(s2011) = "2011";
+PROGSTRING(sHackMelbourneOrg) = "hackmelbourne.org";
 
 void displaySplashScreen(
   Image_t icon) {
 
   GLCD.ClearScreen();
   GLCD.DrawBitmap(icon, 0, 0);
-  GLCD.CursorToXY(68,  0);  GLCD.print("ArduinoLab");
-  GLCD.CursorToXY(86, 20);  GLCD.print("GGHC");
-  GLCD.CursorToXY(86, 36);  GLCD.print("2011");
-  GLCD.CursorToXY(26, 56);  GLCD.print("hackmelbourne.org");
+  GLCD.DrawString_P(sArduinoLab,       68,  0);
+  GLCD.DrawString_P(sGGHC,             86, 20);
+  GLCD.DrawString_P(s2011,             86, 36);
+  GLCD.DrawString_P(sHackMelbourneOrg, 26, 56);
 }
 
 void displayTitle(char *title) {
-  GLCD.CursorToXY(0, 0);
-  GLCD.print(title);
+  GLCD.DrawString(title, 0, 0);                  // TODO: Use inverted TextArea
 }
 
-void screenRenderTest(void) {
+PROGSTRING(sTestScreenRender) = "Test screen render";
+
+void screenRenderTest1(void) {
   GLCD.DrawBitmap(cchs_logo, 0, 0);
-  GLCD.CursorToXY(0, 8);  GLCD.print("Test screen render");
-}
-
-/* ------------------------------------------------------------------------- */
-
-void displayDemo() {
-  iscreen++;
-
-  if (iscreen >= 10) iscreen = 0;  // textAreaDemo();
-
-  switch(iscreen) {
-    case 0 : displaySplashScreen(cchs_logo); delay(4000);     break;
-    case 1 : displayScreen1();               delay(8000);     break;
-    case 2 : displayScreen2();               scribble(8000);  break;
-    case 3 : displayScreen3();               delay(4000);     break;
-  } 
+  GLCD.DrawString_P(sTestScreenRender, 0, 8);
 }
 
 /* ------------------------------------------------------------------------- */
 
 void displayScreen1() {
-  if (! screenInitialized) screenInitialize();
-  
   setupScreen1(); 
   //textArea.DefineArea(textAreaGRAPH);
   
@@ -121,8 +112,6 @@ void displayScreen1() {
 /* ------------------------------------------------------------------------- */
 
 void displayScreen2() {
-  if (! screenInitialized) screenInitialize();
-
   help_text="This screen is used "
             "for generating wave "
             "forms that can be   "
@@ -146,8 +135,6 @@ void displayScreen2() {
 /* ------------------------------------------------------------------------- */
 
 void displayScreen3() {
-  if (! screenInitialized) screenInitialize();
-
   setupScreen3(); 
   setPotValue(textAreaPOTVAL1, "2000", "Khz", BLACK, true);
   setPotValue(textAreaPOTVAL2, "1500", "mA", BLACK, true);

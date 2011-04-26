@@ -9,6 +9,13 @@
  * None, yet !
  */
 
+// Allocate strings in Flash program memory to save RAM
+
+#include <avr/pgmspace.h>
+#define PROGSTRING(name) static const prog_char name[] PROGMEM
+
+// Serial communications speed
+
 const long DEFAULT_BAUD_RATE = 38400;
 
 // Digital Input/Output pins
