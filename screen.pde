@@ -6,6 +6,7 @@
  *
  * To Do
  * ~~~~~
+ * - Define a typedef for each struct.
  * - Break into individual screen files.
  * - Break out widgets into own file.
  * - Provide a "textarea" table to avoid duplication of dimension parameters.
