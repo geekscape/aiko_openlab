@@ -22,14 +22,14 @@
  *
  * To Do
  * ~~~~~
- * - Break into multiple files for collaborative development.
- * - Multiple screens with title.
+ * - Navigation between screens using 6-way button board.
+ * - Potential screens ...
+ *   - Clock, stopwatch and timer.
  *   - Multimeter: Voltage and frequency input and output on each channel.
  *   - Waveform display: Simple oscilloscope.
  *   - Waveform generator.
  *   - Ruben's Tube and EEG projects.
- *   - Battery charge screen ?
- * - Navigation between screens using 6-way button board.
+ *   - Battery charge screen (next hardware revision) ?
  * - Communications to PC (over ZigBee).
  *
  * Notes
