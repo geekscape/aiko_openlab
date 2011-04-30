@@ -16,8 +16,26 @@
 float sr3_g_head_pos = 0.0;
 
 void screenRenderTest3() {
+  gText textArea;
+
   const int duration = 100;  // milliseconds
   const float tick = 1 / 128.0;
+  static byte titletimer;
+
+  if (screenChange) {
+    titletimer = 0;
+    //drawString("Freq", WHITE,  0, 55, 32);
+    displayPotLabel(1,"FRQ");
+    //drawString("Amp",  WHITE, 64, 55, 32);
+    displayPotLabel(2,"AMP");
+  }
+  
+  titletimer++;
+  if (titletimer > 12) {
+    textArea.DefineArea(0, 0, GLCD.Width-1, 8);
+    textArea.SelectFont(font, BLACK);
+    textArea.ClearArea();
+  }
  
   for (unsigned long start = millis();  millis() - start < duration; ) {
     sr3_g_head_pos += tick;
