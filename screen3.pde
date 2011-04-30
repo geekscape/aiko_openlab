@@ -14,28 +14,23 @@
  */
 
 float sr3_g_head_pos = 0.0;
+int   titletimer = 0;;
 
 void screenRenderTest3() {
   gText textArea;
 
   const int duration = 100;  // milliseconds
   const float tick = 1 / 128.0;
-  static byte titletimer;
 
   if (screenChange) {
     titletimer = 0;
-    //drawString("Freq", WHITE,  0, 55, 32);
-    displayPotLabel(1,"FRQ");
-    //drawString("Amp",  WHITE, 64, 55, 32);
-    displayPotLabel(2,"AMP");
+    displayPotLabel(1, "Frq");
+    displayPotLabel(2, "Amp");
   }
   
-  titletimer++;
-  if (titletimer > 12) {
-    textArea.DefineArea(0, 0, GLCD.Width-1, 8);
-    textArea.SelectFont(font, BLACK);
-    textArea.ClearArea();
-  }
+  titletimer ++;
+
+  if (titletimer > 10) displayTitle("New title");
  
   for (unsigned long start = millis();  millis() - start < duration; ) {
     sr3_g_head_pos += tick;

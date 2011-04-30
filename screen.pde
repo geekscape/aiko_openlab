@@ -7,9 +7,6 @@
  * To Do
  * ~~~~~
  * - Define a typedef for each struct.
- * - Break into individual screen files.
- * - Break out widgets into own file.
- * - Provide a "textarea" table to avoid duplication of dimension parameters.
  * - Only clear screen as required, use a flag.
  * - Only render screen as required, if an event has occurred ?
  * - Only display title/menu as required, up-to 10 seconds after screen change ?
@@ -34,8 +31,6 @@ const struct screenType screens[] = {
 };
 
 const byte screenCount = sizeof(screens) / sizeof(screenType);
-const byte potLabelLen = 6 * 3; // 6 pixels wide x 3 Characters Max
-const byte potValueLen = 6 * 7; // 6 pixels wide x 7 Characters Max
 
 byte screenInitialized = false;
 byte currentScreen = 0;
@@ -92,61 +87,3 @@ void displayTitle(char *title) {              // TODO: title should use PROGMEM
   titleArea.ClearArea();
   titleArea.DrawString(title, 1, 1);
 }
-
-
-/* ------------------------------------------------------------------------- */
-
-void displayPotLabel(
-  byte      pot,
-  char     *label){                            // TODO: label could use PROGMEM
-
-  byte y = GLCD.Height - 9;
-  
-  if(pot == 1)
- {
-  drawString(label, WHITE, 1, y, potLabelLen);
- }
-  else  
- {   
-  drawString(label, WHITE, GLCD.Width / 2, y, potLabelLen);
- }
-
-}
-
-/* ------------------------------------------------------------------------- */
-
-void displayPotValue(
-  byte      pot,
-  char     *value){                            //
-
-  byte y = GLCD.Height - 9;
-  
-  if(pot == 1)
- {
-  drawString(value, BLACK, potLabelLen + 1, y, potValueLen);
- }
-  else  
- {   
-  drawString(value, BLACK, (GLCD.Width / 2) + potLabelLen + 1, y, potValueLen);
- }
-
-}
-
-/* ------------------------------------------------------------------------- */
-
-void drawString(
-  char     *value,                            // TODO: value should use PROGMEM
-  uint8_t   colour,
-  byte      x,
-  byte      y,
-  byte      w) {
-
-  gText textArea;
-
-  textArea.DefineArea(x, y, x + w, y + 8);
-  textArea.SelectFont(font, colour);
-  textArea.ClearArea();
-  textArea.DrawString(value, 1, 1);
-}
-
-/* ------------------------------------------------------------------------- */

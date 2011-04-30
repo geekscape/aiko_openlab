@@ -23,16 +23,14 @@ void screenRenderTest2() {
   gText textArea;
 
   if (screenChange) {
-    textArea.DefineArea(0, 10, GLCD.Width-1, 54);
+    textArea.DefineArea(0, 10, GLCD.Width - 1, 54);
     textArea.SelectFont(font, BLACK);
     textArea.DrawString_P(sHelp2, 0, 0);
 
-    //drawString("Freq", WHITE,  0, 55, 32);
-    displayPotLabel(1,"FRQ");
-    //drawString("Amp",  WHITE, 64, 55, 32);
-    displayPotLabel(2,"AMP");
+    displayPotLabel(1, "Frq");
+    displayPotLabel(2, "Amp");
   }
 
-  drawString("2 KHz",  BLACK, 32, 55, 31);
-  drawString("50 mA", BLACK, 95, 55, 31);      // TODO: Used "95", not "96" :(
+  drawString("2 KHz", BLACK, 32, 55, 31);
+  drawString("50 mA", BLACK, 95, 55, 31);       // TODO: Used "95", not "96" :(
 }
