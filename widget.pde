@@ -9,9 +9,9 @@
  * - None, yet.
  */
 
-const byte potLabelLength = 6 * 3;              // 3 characters x 6 pixels wide
+const byte POT_LABEL_LENGTH = 6 * 3;            // 3 characters x 6 pixels wide
 
-const byte potValueLength = 6 * 7;              // 7 characters x 6 pixels wide
+const byte POT_VALUE_LENGTH = 6 * 7;            // 7 characters x 6 pixels wide
 
 /* ------------------------------------------------------------------------- */
 
@@ -22,7 +22,7 @@ void displayPotLabel(
   byte x = (potIndex == 1)  ?  1  :  GLCD.Width / 2;
   byte y = GLCD.Height - 9;
   
-  drawString(label, WHITE, x, y, potLabelLength);
+  drawString(label, WHITE, x, y, POT_LABEL_LENGTH);
 }
 
 /* ------------------------------------------------------------------------- */
@@ -31,12 +31,12 @@ void displayPotValue(
   byte  potIndex,
   char *value) {                               // TODO: value could use PROGMEM
 
-  byte x = potValueLength + 1;
+  byte x = POT_VALUE_LENGTH + 1;
   if (potIndex > 1) x += GLCD.Width / 2;
 
   byte y = GLCD.Height - 9;
 
-  drawString(value, BLACK, x, y, potLabelLength);
+  drawString(value, BLACK, x, y, POT_LABEL_LENGTH);
 }
 
 /* ------------------------------------------------------------------------- */
@@ -51,7 +51,7 @@ void drawString(
   gText textArea;
 
   textArea.DefineArea(x, y, x + w, y + 8);
-  textArea.SelectFont(font, colour);
+  textArea.SelectFont(FONT, colour);
   textArea.ClearArea();
   textArea.DrawString(value, 1, 1);
 }

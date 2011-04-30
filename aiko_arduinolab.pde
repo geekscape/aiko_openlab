@@ -23,12 +23,14 @@
  * To Do
  * ~~~~~
  * - Navigation between screens using 6-way button board.
+ * - Potentiometer input and widgets.
  * - Potential screens ...
  *   - Clock, stopwatch and timer.
  *   - Multimeter: Voltage and frequency input and output on each channel.
  *   - Waveform display: Simple oscilloscope.
  *   - Waveform generator.
  *   - Ruben's Tube and EEG projects.
+ *   * Game, e.g GLCD example "Rocket", pong (easter egg).
  *   - Battery charge screen (next hardware revision) ?
  * - Communications to PC (over ZigBee).
  *
@@ -47,8 +49,9 @@ using namespace Aiko;
 void setup(void) {
   Events.addHandler(clockHandler,           1000);
   Events.addHandler(serialTestInputHandler,  100);
+  Events.addHandler(screenBacklightHandler,   50);
   Events.addHandler(screenChangeHandler,    5000);
-  Events.addHandler(screenOutputHandler,     100);
+//Events.addHandler(screenOutputHandler,     100);
 }
 
 void loop(void) {

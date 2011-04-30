@@ -19,8 +19,8 @@ int   titletimer = 0;;
 void screenRenderTest3() {
   gText textArea;
 
-  const int duration = 100;  // milliseconds
-  const float tick = 1 / 128.0;
+  const int DURATION = 100;  // milliseconds
+  const float TICK = 1 / 128.0;
 
   if (screenChange) {
     titletimer = 0;
@@ -32,11 +32,11 @@ void screenRenderTest3() {
 
   if (titletimer > 10) displayTitle("New title");
  
-  for (unsigned long start = millis();  millis() - start < duration; ) {
-    sr3_g_head_pos += tick;
+  for (unsigned long start = millis();  millis() - start < DURATION; ) {
+    sr3_g_head_pos += TICK;
 
     float head = sr3_g_head_pos;
-    float tail = head - (256 * tick);
+    float tail = head - (256 * TICK);
 
     // set the pixels at the 'head' of the line...
     byte x = fn_x(head);

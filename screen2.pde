@@ -24,7 +24,7 @@ void screenRenderTest2() {
 
   if (screenChange) {
     textArea.DefineArea(0, 10, GLCD.Width - 1, 54);
-    textArea.SelectFont(font, BLACK);
+    textArea.SelectFont(FONT, BLACK);
     textArea.DrawString_P(sHelp2, 0, 0);
 
     displayPotLabel(1, "Frq");

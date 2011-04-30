@@ -6,6 +6,8 @@
  *
  * To Do
  * ~~~~~
+ * - Screen backlight value in EEPROM, changeable via preferences screen.
+ * - Initial screen value (specific index or most recent) in EEPROM, changable via preferences screen.
  * - Define a typedef for each struct.
  * - Only clear screen as required, use a flag.
  * - Only render screen as required, if an event has occurred ?
@@ -17,7 +19,7 @@
 #include "cchs_logo.h"
 #include "fonts/SystemFont5x7.h"
 
-const Font_t font = System5x7;
+const Font_t FONT = System5x7;
 
 struct screenType {
   char *title;
@@ -30,22 +32,38 @@ const struct screenType screens[] = {
   "3] Scribble",       screenRenderTest3
 };
 
-const byte screenCount = sizeof(screens) / sizeof(screenType);
+const byte SCREEN_COUNT = sizeof(screens) / sizeof(screenType);
 
-byte screenInitialized = false;
 byte currentScreen = 0;
 byte screenChange = true;
+byte screenInitialized = false;
+
+byte screenBacklight = 255;
+byte screenBacklightCounter = 0;
+int  screenBacklightIncrement = 4;
+const byte SCREEN_BACKLIGHT_COUNT = 255 / screenBacklightIncrement;
 
 void screenInitialize(void) {
   GLCD.Init();
-  GLCD.SelectFont(font);
+  GLCD.SelectFont(FONT);
   screenInitialized = true;
 
   displaySplashScreen(cchs_logo);
 }
 
+void screenBacklightHandler(void) {      // TODO: Temporary example only
+  if (screenBacklightCounter == 0) {
+    screenBacklightCounter = SCREEN_BACKLIGHT_COUNT;
+    screenBacklightIncrement = - screenBacklightIncrement;
+  }
+
+  screenBacklightCounter --;
+  screenBacklight += screenBacklightIncrement;
+  analogWrite(PIN_LCD_BACKLIGHT, screenBacklight);
+}
+
 void screenChangeHandler(void) {      // TODO: Temporary until navigation works
-  currentScreen = (currentScreen + 1) % screenCount;
+  currentScreen = (currentScreen + 1) % SCREEN_COUNT;
   screenChange = true;
 }
 
@@ -83,7 +101,7 @@ void displayTitle(char *title) {              // TODO: title should use PROGMEM
   gText titleArea;
 
   titleArea.DefineArea(0, 0, GLCD.Width-1, 8);
-  titleArea.SelectFont(font, WHITE);
+  titleArea.SelectFont(FONT, WHITE);
   titleArea.ClearArea();
   titleArea.DrawString(title, 1, 1);
 }
