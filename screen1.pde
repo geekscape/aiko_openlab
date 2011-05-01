@@ -19,17 +19,18 @@ float pinPot2 = 0.0;
 void screenRenderTest1() {
   if (screenChange) {
     displayPotLabel(1, "Vlt");
-    pinPot1 = 3;
-
     displayPotLabel(2, "Amp");
-    pinPot1 = 800;
+    pinPot1 = 3;
+    pinPot2 = 800;
   }
 
-  pinPot1 ++;
-  displayPotValueNew(1, pinPot1, 2, "V");
-
-  pinPot2 --;
-  displayPotValueNew(2, pinPot2, 0, "mA");
+  //Retreive Pot inputs and set values to display;
+  pinPot1++;
+  pinPot2--;
+  
+  //Display Pot values;
+  displayPotValue(1, pinPot1, 1, "V");
+  displayPotValue(2, pinPot2, 0, "mA");
 }
 
 
