@@ -34,17 +34,17 @@ void screenRenderTest4() {
   if (screenChange) {
     drawGeoAxes();
     screenChange = false;
+    GLCD.DrawLine(10, (int)(GLCD.Height/2), GLCD.Width-10, (int)(GLCD.Height/2), BLACK); // Horizontal Line
+    //GLCD.DrawHoriLine(10, (int)(GLCD.Height/2), GLCD.Width-10); // Horizontal Line - Doesn't work
+    GLCD.DrawLine((int)(GLCD.Width/2), 10, (int)(GLCD.Width/2), 50 , BLACK); // Vertical Line
+
   }
 
   //GLCD.DrawLine(0, 0, 100, 8, BLACK);
 
-  GLCD.DrawLine(10, (int)(GLCD.Height/2), GLCD.Width-10, (int)(GLCD.Height/2), BLACK); // Horizontal Line
-  //GLCD.DrawHoriLine(10, (int)(GLCD.Height/2), GLCD.Width-10); // Horizontal Line
-  GLCD.DrawLine((int)(GLCD.Width/2), 10, (int)(GLCD.Width/2), 50 , BLACK); // Vertical Line
 
   //Serial.print("Test");
   int result=analogRead(PIN_ANALOG_INPUT);
-
   float volt= ((result*5.0)/1022);
   char test[7];
    
@@ -53,5 +53,6 @@ void screenRenderTest4() {
   //Serial.println(test);
   strcat(test, "V");
   drawString(test, BLACK, 32, 55, 32);
+  delay(200);
 }
 
