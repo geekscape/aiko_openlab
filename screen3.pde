@@ -14,7 +14,7 @@
  */
 
 float sr3_g_head_pos = 0.0;
-int   titletimer = 0;;
+int   titletimer = 0;                                 // TODO: Work in progress
 
 void screenRenderTest3() {
   gText textArea;
@@ -28,9 +28,7 @@ void screenRenderTest3() {
     displayPotLabel(2, "Amp");
   }
   
-  titletimer ++;
-  if (titletimer > 12) clearTitle();
-  
+  if (++ titletimer > 12) clearTitle();               // TODO: Work in progress
  
   for (unsigned long start = millis();  millis() - start < DURATION; ) {
     sr3_g_head_pos += TICK;

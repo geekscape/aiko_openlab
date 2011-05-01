@@ -48,8 +48,8 @@ using namespace Aiko;
 
 void setup(void) {
   Events.addHandler(clockHandler,           1000);
-  Events.addHandler(serialTestInputHandler,  100);
-  //Events.addHandler(screenBacklightHandler,   50);
+  Events.addHandler(serialTestInputHandler,  100);  // Testing only
+//Events.addHandler(screenBacklightHandler,   50);  // Example only
   Events.addHandler(screenChangeHandler,    5000);
   Events.addHandler(screenOutputHandler,     100);
 }

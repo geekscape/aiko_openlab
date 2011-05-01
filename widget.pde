@@ -41,38 +41,35 @@ void displayPotValue(
 /* ------------------------------------------------------------------------- */
 
 void displayPotValueNew(
-  byte               potIndex,
-  float              value,
-  unsigned char      prec,
-  char               *units){   //
+  byte           potIndex,
+  float          value,
+  unsigned char  precision,
+  char          *units) {
 
   //byte y = GLCD.Height - 9;
   char val[12];
 
-  dtostrf(value, 5, prec, val);
-  //Serial.print(" value: ");
-  //Serial.println(value);
-  //Serial.print(" val: ");
-  //Serial.println(val);
+  dtostrf(value, 5, precision, val);
+/*
+  Serial.print(" value: ");  Serial.println(value);
+  Serial.print(" val: ");    Serial.println(val);
   strcat(val, units);
-  //Serial.print(" val: ");
-  //Serial.println(val);
-  
+  Serial.print(" val: ");    Serial.println(val);
+ */
   byte x = POT_LABEL_LENGTH + 1;
   if (potIndex > 1) x += GLCD.Width / 2;
   byte y = GLCD.Height - 9;
 
   drawString(val, BLACK, x, y, POT_VALUE_LENGTH);
 
- // if(pot == 1)
- //{
- // drawString(val, BLACK, POT_LABEL_LENGTH + 1, y, POT_VALUE_LENGTH);
- //}
- // else  
- //{   
- // drawString(val, BLACK, (GLCD.Width / 2) + POT_LABEL_LENGTH + 1, y, POT_VALUE_LENGTH);
- //}
-
+/*
+  if(pot == 1) {
+    drawString(val, BLACK, POT_LABEL_LENGTH + 1, y, POT_VALUE_LENGTH);
+  }
+  else  {   
+    drawString(val, BLACK, (GLCD.Width / 2) + POT_LABEL_LENGTH + 1, y, POT_VALUE_LENGTH);
+  }
+ */
 }
 
 /* ------------------------------------------------------------------------- */
