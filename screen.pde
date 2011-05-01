@@ -6,10 +6,8 @@
  *
  * To Do
  * ~~~~~
- * - Automatically remove screen title after fixed time period.
  * - Screen backlight value in EEPROM, changeable via preferences screen.
- * - Initial screen value (specific index or most recent) in EEPROM,
- *     changable via preferences screen.
+ * - Initial screen value (specific index or most recent) in EEPROM, changable via preferences screen.
  * - Define a typedef for each struct.
  * - Only clear screen as required, use a flag.
  * - Only render screen as required, if an event has occurred ?
@@ -54,7 +52,7 @@ void screenInitialize(void) {
 }
 
 void screenBacklightHandler(void) {      // TODO: Temporary example only
-  if (screenBacklightCounter == 3) {
+  if (screenBacklightCounter == 0) {
     screenBacklightCounter = SCREEN_BACKLIGHT_COUNT;
     screenBacklightIncrement = - screenBacklightIncrement;
   }
@@ -72,7 +70,7 @@ void screenChangeHandler(void) {      // TODO: Temporary until navigation works
 void screenOutputHandler(void) {
   if (! screenInitialized) screenInitialize();
 
-  if (secondCounter >= 0) {
+  if (secondCounter >= 3) {  // Setting secondCounter to 0 can be helpful for debugging
     if (screenChange) GLCD.ClearScreen();
     screens[currentScreen].render();
 
@@ -108,10 +106,11 @@ void displayTitle(char *title) {              // TODO: title should use PROGMEM
   titleArea.DrawString(title, 1, 1);
 }
 
-void clearTitle() {
+void clearTitle() {              // 
   gText titleArea;
 
-  titleArea.DefineArea(0, 0, GLCD.Width-1, 8);
-  titleArea.SelectFont(FONT, BLACK);
-  titleArea.ClearArea();
+    titleArea.DefineArea(0, 0, GLCD.Width-1, 8);
+    titleArea.SelectFont(FONT, BLACK);
+    titleArea.ClearArea();
 }
+
