@@ -14,7 +14,7 @@
  */
 
 float sr3_g_head_pos = 0.0;
-int   titletimer = 0;                                 // TODO: Work in progress
+int   titletimer = 0;;
 
 void screenRenderTest3() {
   gText textArea;
@@ -28,7 +28,18 @@ void screenRenderTest3() {
     displayPotLabel(2, "Amp");
   }
   
-  if (++ titletimer > 12) clearTitle();               // TODO: Work in progress
+  //Retreive Pot inputs and set values to display;
+  pinPot1--;
+  //pinPot2++;
+  
+  //Display Pot values;
+  displayPotValue(1, pinPot1, 0, "V");
+  displayPotValue(2, pinPot2, 0, "mA");
+  
+  //Clear title after approx 2 seconds
+  titletimer ++;
+  if (titletimer = 16) clearTitle(); // Approx 8 timer cycles per second
+  
  
   for (unsigned long start = millis();  millis() - start < DURATION; ) {
     sr3_g_head_pos += TICK;
