@@ -70,7 +70,7 @@ void screenChangeHandler(void) {      // TODO: Temporary until navigation works
 void screenOutputHandler(void) {
   if (! screenInitialized) screenInitialize();
 
-  if (secondCounter >= 3) {
+  if (secondCounter >= 0) {
     if (screenChange) GLCD.ClearScreen();
     screens[currentScreen].render();
 
@@ -105,3 +105,12 @@ void displayTitle(char *title) {              // TODO: title should use PROGMEM
   titleArea.ClearArea();
   titleArea.DrawString(title, 1, 1);
 }
+
+void clearTitle() {              // 
+  gText titleArea;
+
+    titleArea.DefineArea(0, 0, GLCD.Width-1, 8);
+    titleArea.SelectFont(FONT, BLACK);
+    titleArea.ClearArea();
+}
+
