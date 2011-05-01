@@ -18,7 +18,7 @@ void displayHelpText(
   char *helpText) {                         // TODO: helpText could use PROGMEM
 
   gText helpArea;
-  
+ 
   helpArea.DefineArea(0, 11, GLCD.Width - 1, 54);
   helpArea.SelectFont(FONT, BLACK);
   helpArea.DrawString_P(helpText, 0, 0);
@@ -32,7 +32,7 @@ void displayPotLabel(
 
   byte x = (potIndex == 1)  ?  1  :  GLCD.Width / 2;
   byte y = GLCD.Height - 9;
-  
+ 
   drawString(label, WHITE, x, y, POT_LABEL_LENGTH);
 }
 
@@ -50,7 +50,7 @@ void displayPotValue(
   strcat(buffer, units);
 
   // TODO: Confirm why +2 was required, not +1 (accounting for 1 not 0 start ?)
-  byte x = POT_LABEL_LENGTH + 2; 
+  byte x = POT_LABEL_LENGTH + 2;
   if (potIndex == 2) x += GLCD.Width / 2;
 
   byte y = GLCD.Height - 9;

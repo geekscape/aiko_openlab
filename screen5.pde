@@ -1,13 +1,12 @@
 /* StopWatch
  * Paul Badger 2008
- * Demonstrates using millis(), pullup resistors, 
+ * Demonstrates using millis(), pullup resistors,
  * making two things happen at once, printing fractions
  *
  * Physical setup: momentary switch connected to pin 4, other side connected to ground
  * LED with series resistor between pin 13 and ground
  */
 
-// 
 /*
 #define ledPin  13                  // LED connected to digital pin 13
 #define buttonPin 4                 // button on pin 4
@@ -63,15 +62,15 @@ void screenRenderTest5()
         blinking = false;                                  // turn off blinking, all done timing
         lastButtonState = buttonState;                     // store buttonState in lastButtonState, to compare next time
 
-       // routine to report elapsed time 
+       // routine to report elapsed time
         Serial.print( (int)(elapsedTime / 1000L));         // divide by 1000 to convert to seconds - then cast to an int to print
 
         Serial.print(".");                             // print decimal point
 
-        // use modulo operator to get fractional part of time 
+        // use modulo operator to get fractional part of time
        fractional = (int)(elapsedTime % 1000L);
 
-       // pad in leading zeros - wouldn't it be nice if 
+       // pad in leading zeros - wouldn't it be nice if
        // Arduino language had a flag for this? :)
        if (fractional == 0)
           Serial.print("000");      // add three zero's
@@ -80,7 +79,7 @@ void screenRenderTest5()
        else if (fractional < 100)
           Serial.print("0");        // add one zero
 
-       Serial.println(fractional);  // print fractional part of time 
+       Serial.println(fractional);  // print fractional part of time
    }
    else{
       lastButtonState = buttonState;                         // store buttonState in lastButtonState, to compare next time
