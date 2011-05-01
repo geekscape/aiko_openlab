@@ -29,8 +29,8 @@ void screenRenderTest3() {
   }
   
   titletimer ++;
-
-  if (titletimer > 10) displayTitle("New title");
+  if (titletimer > 12) clearTitle();
+  
  
   for (unsigned long start = millis();  millis() - start < DURATION; ) {
     sr3_g_head_pos += TICK;

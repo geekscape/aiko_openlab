@@ -31,12 +31,48 @@ void displayPotValue(
   byte  potIndex,
   char *value) {                               // TODO: value could use PROGMEM
 
-  byte x = POT_VALUE_LENGTH + 1;
+  byte x = POT_LABEL_LENGTH + 1;
   if (potIndex > 1) x += GLCD.Width / 2;
-
   byte y = GLCD.Height - 9;
 
-  drawString(value, BLACK, x, y, POT_LABEL_LENGTH);
+  drawString(value, BLACK, x, y, POT_VALUE_LENGTH);
+}
+
+/* ------------------------------------------------------------------------- */
+
+void displayPotValueNew(
+  byte               potIndex,
+  float              value,
+  unsigned char      prec,
+  char               *units){   //
+
+  //byte y = GLCD.Height - 9;
+  char val[12];
+
+  dtostrf(value, 5, prec, val);
+  //Serial.print(" value: ");
+  //Serial.println(value);
+  //Serial.print(" val: ");
+  //Serial.println(val);
+  strcat(val, units);
+  //Serial.print(" val: ");
+  //Serial.println(val);
+  
+  byte x = POT_LABEL_LENGTH + 1;
+  if (potIndex > 1) x += GLCD.Width / 2;
+  byte y = GLCD.Height - 9;
+
+  drawString(val, BLACK, x, y, POT_VALUE_LENGTH);
+
+ // if(pot == 1)
+ //{
+ // drawString(val, BLACK, POT_LABEL_LENGTH + 1, y, POT_VALUE_LENGTH);
+ //}
+ // else  
+ //{   
+ // drawString(val, BLACK, (GLCD.Width / 2) + POT_LABEL_LENGTH + 1, y, POT_VALUE_LENGTH);
+ //}
+
 }
 
 /* ------------------------------------------------------------------------- */

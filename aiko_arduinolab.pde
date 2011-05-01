@@ -49,9 +49,9 @@ using namespace Aiko;
 void setup(void) {
   Events.addHandler(clockHandler,           1000);
   Events.addHandler(serialTestInputHandler,  100);
-  Events.addHandler(screenBacklightHandler,   50);
+  //Events.addHandler(screenBacklightHandler,   50);
   Events.addHandler(screenChangeHandler,    5000);
-//Events.addHandler(screenOutputHandler,     100);
+  Events.addHandler(screenOutputHandler,     100);
 }
 
 void loop(void) {
