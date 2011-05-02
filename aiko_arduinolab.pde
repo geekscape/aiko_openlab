@@ -59,6 +59,7 @@ void setup(void) {
   pinMode(PIN_ZIGBEE_SLEEP,  OUTPUT);
 
   Events.addHandler(clockHandler,           1000);
+//Events.addHandler(outputTestHandler,       100);  // Testing only
   Events.addHandler(serialTestInputHandler,  100);  // Testing only
 //Events.addHandler(screenBacklightHandler,   50);  // Example only
   Events.addHandler(screenChangeHandler,    5000);
@@ -68,6 +69,33 @@ void setup(void) {
 
 void loop(void) {
   Events.loop();
+}
+
+/* ------------------------------------------------------------------------- */
+
+struct outputState {
+  boolean output1;
+  boolean output2;
+  boolean output3;
+};
+
+const struct outputState outputStates[] = {
+  HIGH, LOW,  LOW,
+  LOW,  HIGH, LOW,
+  LOW,  LOW,  HIGH,
+  LOW,  HIGH, LOW
+};
+
+const byte OUTPUT_STATE_COUNT = sizeof(outputStates) / sizeof(outputState);
+
+int outputStateIndex = 0;
+
+void outputTestHandler(void) {
+  digitalWrite(PIN_OUTPUT_1, outputStates[outputStateIndex].output1);
+  digitalWrite(PIN_OUTPUT_2, outputStates[outputStateIndex].output2);
+  digitalWrite(PIN_OUTPUT_3, outputStates[outputStateIndex].output3);
+
+  outputStateIndex = (outputStateIndex + 1) % OUTPUT_STATE_COUNT;
 }
 
 /* ------------------------------------------------------------------------- */
