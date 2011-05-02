@@ -22,6 +22,7 @@
  *
  * To Do
  * ~~~~~
+ * - In general, only update LCD values when they change (avoid flicker).
  * - Move pinMode() to the appropriate application initialization function.
  * - Navigation between screens using 6-way button board.
  * - Potentiometer input and widgets.
@@ -61,6 +62,7 @@ void setup(void) {
 //Events.addHandler(screenBacklightHandler,   50);  // Example only
   Events.addHandler(screenChangeHandler,    5000);
   Events.addHandler(screenOutputHandler,     100);
+  Events.addHandler(stopwatchHandler,        100);
 }
 
 void loop(void) {

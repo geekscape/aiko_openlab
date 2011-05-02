@@ -6,7 +6,7 @@
  *
  * Description
  * ~~~~~~~~~~~
- * George's test screen
+ * Graphing screen.
  *
  * To Do
  * ~~~~~
@@ -21,7 +21,7 @@ void drawGeoAxes() {
 void screenRenderTest4() {
   if (screenChange) {
     drawGeoAxes();
-    drawString("Volt", WHITE,  0, 55, 32);
+    drawString("Volt", WHITE,  0, 55, 24);
   }
 
   int   result = analogRead(PIN_ANALOG_INPUT);
