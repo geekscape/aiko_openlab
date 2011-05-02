@@ -11,10 +11,12 @@
 
 void buttonEventOkay(void) {
   Serial.println("buttonEventOkay()");
+  stopwatchRunning = !stopwatchRunning;
 }
 
 void buttonEventCancel(void) {
   Serial.println("buttonEventCancel()");
+  stopwatchCounter=0;
 }
 
 void buttonEventLeft(void) {
