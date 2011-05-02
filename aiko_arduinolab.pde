@@ -69,7 +69,7 @@ void loop(void) {
 
 /* ------------------------------------------------------------------------- */
 
-int secondCounter = 0;
+long secondCounter = 0;
 
 void clockHandler(void) {
   ++ secondCounter;
