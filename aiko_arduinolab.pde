@@ -28,10 +28,11 @@
  * - Potentiometer input and widgets.
  * - Potential screens ...
  *   - Multimeter: Voltage and frequency input and output on each channel.
- *   - Waveform display: Simple oscilloscope.
+ *   - Graph: Waveform display: Simple oscilloscope.
  *   - Waveform generator.
  *   - Ruben's Tube and EEG projects.
  *   * Game, e.g GLCD example "Rocket", pong (easter egg).
+ *   - Preferences/control screen, plus AVR temperature.
  *   - Battery charge screen (next hardware revision) ?
  * - Communications to PC (over ZigBee).
  *
