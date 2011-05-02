@@ -28,9 +28,13 @@ struct screenType {
 };
 
 const struct screenType screens[] = {
+/*
   "1] Power Supply",   screenRenderTest1,
   "2] Wave Generator", screenRenderTest2,
-  "3] Scribble",       screenRenderTest3
+  "3] Scribble",       screenRenderTest3,
+*/ 
+  "4] George",         screenRenderTest4,
+  "5] Stop Watch",     screenRenderTest5
 };
 
 const byte screenCount = sizeof(screens) / sizeof(screenType);
