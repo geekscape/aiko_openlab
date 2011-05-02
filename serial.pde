@@ -28,7 +28,7 @@ const struct keyEventType keyEventMap[] = {
   'l', buttonEventRight
 };
 
-const byte keyEventCount = sizeof(keyEventMap) / sizeof(keyEventType);
+const byte KEY_EVENT_COUNT = sizeof(keyEventMap) / sizeof(keyEventType);
 
 byte serialInitialized = false;
 
@@ -44,7 +44,7 @@ void serialTestInputHandler(void) {
   if (Serial.available() > 0) {
     byte key = Serial.read();
 
-    for (byte index = 0;  index < keyEventCount;  index ++) {
+    for (byte index = 0;  index < KEY_EVENT_COUNT;  index ++) {
       if (keyEventMap[index].key == key) (* keyEventMap[index].eventHandler)();
     }
   }

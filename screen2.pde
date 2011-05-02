@@ -13,24 +13,24 @@
  * - None, yet.
  */
 
-PROGSTRING(sHelp2) = "This screen is used  "
+PROGSTRING(sHelp1) = "This screen is used  "
                      "for generating wave  "
                      "forms that can be    "
-                     "produced as sound via"
-                     "the speaker output";
+                     "produced as sound    ";
+
+PROGSTRING(sHelp2) = "via the speaker      ";
 
 void screenRenderTest2() {
   gText textArea;
 
   if (screenChange) {
-    textArea.DefineArea(0, 10, GLCD.Width-1, 54);
-    textArea.SelectFont(font, BLACK);
-    textArea.DrawString_P(sHelp2, 0, 0);
+    // char *helpText = char(sHelp1);
+    // displayHelpText(helpText);
 
-    drawString("Freq", WHITE,  0, 55, 32);
-    drawString("Amp",  WHITE, 64, 55, 32);
+    displayPotLabel(1, "Frq");
+    displayPotLabel(2, "Amp");
   }
 
-  drawString("2 KHz",  BLACK, 32, 55, 32);
-  drawString("50 mA", BLACK, 95, 55, 32);      // TODO: Used "95", not "96" :(
+  displayPotValue(1,  2, 2, "K");
+  displayPotValue(2, 50, 0, "mA");
 }
