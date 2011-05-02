@@ -22,10 +22,10 @@
  *
  * To Do
  * ~~~~~
+ * - Move pinMode() to the appropriate application initialization function.
  * - Navigation between screens using 6-way button board.
  * - Potentiometer input and widgets.
  * - Potential screens ...
- *   - Clock, stopwatch and timer.
  *   - Multimeter: Voltage and frequency input and output on each channel.
  *   - Waveform display: Simple oscilloscope.
  *   - Waveform generator.
@@ -47,6 +47,15 @@ using namespace Aiko;
 #include "aiko_arduinolab.h"
 
 void setup(void) {
+  pinMode(PIN_SPEAKER,       OUTPUT);
+  pinMode(PIN_LCD_BACKLIGHT, OUTPUT);
+  pinMode(PIN_FREQUENCY,     INPUT);
+  pinMode(PIN_OUTPUT_1,      OUTPUT);
+  pinMode(PIN_OUTPUT_2,      OUTPUT);
+  pinMode(PIN_OUTPUT_3,      OUTPUT);
+  pinMode(PIN_AN_MUX_SELECT, OUTPUT);
+  pinMode(PIN_ZIGBEE_SLEEP,  OUTPUT);
+
   Events.addHandler(clockHandler,           1000);
   Events.addHandler(serialTestInputHandler,  100);  // Testing only
 //Events.addHandler(screenBacklightHandler,   50);  // Example only
