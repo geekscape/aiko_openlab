@@ -88,6 +88,10 @@ const struct outputState outputStates[] = {
 
 const byte OUTPUT_STATE_COUNT = sizeof(outputStates) / sizeof(outputState);
 
+boolean stopwatchRunning = false;
+long    stopwatchCounter = 0;
+
+
 int outputStateIndex = 0;
 
 void outputTestHandler(void) {
