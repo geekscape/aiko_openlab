@@ -21,10 +21,12 @@ PROGMEM  prog_uchar sine256[]  = {
 
 };
 
-int dfreq[5]  = {
-  880, 987, 783, 392, 587
-
+float dfreq[] = {
+  880.0, 987.0, 783.0, 392.0, 587.0
 };
+
+const byte DFREQ_COUNT = sizeof(dfreq) / sizeof(float);
+
 #define cbi(sfr, bit) (_SFR_BYTE(sfr) &= ~_BV(bit))
 #define sbi(sfr, bit) (_SFR_BYTE(sfr) |= _BV(bit))
 
@@ -35,26 +37,12 @@ const double refclk=31376.6;      // measured
 // variables used inside interrupt service declared as voilatile
 volatile byte icnt;              // var inside interrupt
 volatile byte icnt1;             // var inside interrupt
-volatile byte icnt2;             // var inside interrupt
-volatile byte c4ms;              // counter incremented all 4ms
+volatile byte icnt2 = 0;         // var inside interrupt
+volatile byte c4ms = 0;          // counter incremented all 4ms
 volatile unsigned long phaccu;   // pahse accumulator
 volatile unsigned long tword_m;  // dds tuning word m
 
-
-void screenRenderSineWave() {
-  if (screenChange) {
-    displayPotLabel(1, "Vlt");
-
-    displayPotLabel(2, "Amp");
-    
-    setup1();
-  }
-
-
- loop1();
-}
-
-void setup1()
+void setup_sine_wave()
 {
   pinMode(PIN_OUTPUT_1, OUTPUT);     // pin11= PWM  output / frequency output-->9
 
@@ -64,30 +52,25 @@ void setup1()
   cbi (TIMSK0,TOIE0);              // disable Timer0 !!! delay() is now not available
   sbi (TIMSK2,TOIE2);              // enable Timer2 Interrupt
 
-  //dfreq=1000.0;                    // initial output frequency = 1000.o Hz
-  //tword_m=pow(2,32)*dfreq[1]/refclk;  // calulate DDS new tuning word 
-  
-
+  tword_m=pow(2,32)*dfreq[0]/refclk;  // calulate DDS new tuning word 
 }
-void loop1()
+
+void loop_sine_wave()
 {
   while(1) {
      if (c4ms > 250) {                 // timer / wait fou a full second
       c4ms=0;
      // dfreq=analogRead(0);             // read Poti on analog pin 0 to adjust output frequency from 0..1023 Hz--->
-     
-     if(icnt2++ == 6) {  // increment variable c4ms all 4 milliseconds
-       icnt2=0;
-      }
-      icnt2++; 
 
+      icnt2 = (icnt2 + 1) % DFREQ_COUNT;
+     
       cbi (TIMSK2,TOIE2);              // disble Timer2 Interrupt
       tword_m=pow(2,32)*dfreq[icnt2]/refclk;  // calulate DDS new tuning word
       sbi (TIMSK2,TOIE2);              // enable Timer2 Interrupt 
 
-      Serial.print(dfreq[icnt2]);
-      Serial.print("  ");
-      Serial.println(tword_m);
+      Serial.println(dfreq[icnt2]);
+//    Serial.print("  ");
+//    Serial.println(tword_m);
     }
 
    sbi(PORTD,6); // Test / set PORTD,7 high to observe timing with a scope

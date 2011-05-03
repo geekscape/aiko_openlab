@@ -49,6 +49,8 @@ using namespace Aiko;
 #include "aiko_arduinolab.h"
 
 void setup(void) {
+//setup_sine_wave();
+
   pinMode(PIN_SPEAKER,       OUTPUT);
   pinMode(PIN_LCD_BACKLIGHT, OUTPUT);
   pinMode(PIN_FREQUENCY,     INPUT);
@@ -59,7 +61,7 @@ void setup(void) {
   pinMode(PIN_ZIGBEE_SLEEP,  OUTPUT);
 
   Events.addHandler(clockHandler,           1000);
-//Events.addHandler(outputTestHandler,       100);  // Testing only
+  Events.addHandler(outputTestHandler,       100);  // Testing only
   Events.addHandler(serialTestInputHandler,  100);  // Testing only
 //Events.addHandler(screenBacklightHandler,   50);  // Example only
   Events.addHandler(screenChangeHandler,    5000);
@@ -68,6 +70,8 @@ void setup(void) {
 }
 
 void loop(void) {
+//loop_sine_wave();
+
   Events.loop();
 }
 

@@ -31,7 +31,7 @@ struct screenType {
 const struct screenType screens[] = {
   "1] Power Supply",   screenRenderTest1,
   "2] Wave Generator", screenRenderTest2,
-  "3] Scribble",       screenRenderTest3,
+//"3] Scribble",       screenRenderTest3,
   "4] Graph",          screenRenderTest4,
   "5] Stopwatch",      screenRenderTest5
 };
@@ -48,6 +48,9 @@ int  screenBacklightIncrement = 4;
 const byte SCREEN_BACKLIGHT_COUNT = 255 / screenBacklightIncrement;
 
 void screenInitialize(void) {
+  pinMode(PIN_LCD_BACKLIGHT, OUTPUT);
+  analogWrite(PIN_LCD_BACKLIGHT, 255);
+
   GLCD.Init();
   GLCD.SelectFont(FONT);
   screenInitialized = true;
