@@ -31,7 +31,7 @@ struct screenType {
 const struct screenType screens[] = {
   "1] Power Supply",   screenRenderTest1,
   "2] Wave Generator", screenRenderTest2,
-//"3] Scribble",       screenRenderTest3,
+  "3] Scribble",       screenRenderTest3,
   "4] Graph",          screenRenderTest4,
   "5] Stopwatch",      screenRenderTest5
 };
@@ -42,14 +42,14 @@ byte currentScreen = 0;
 byte screenChange = true;
 byte screenInitialized = false;
 
-byte screenBacklight = 255;
-byte screenBacklightCounter = 0;
 int  screenBacklightIncrement = 4;
 const byte SCREEN_BACKLIGHT_COUNT = 255 / screenBacklightIncrement;
+byte screenBacklightCounter = SCREEN_BACKLIGHT_COUNTER;
+byte screenBacklight = 0;
 
 void screenInitialize(void) {
   pinMode(PIN_LCD_BACKLIGHT, OUTPUT);
-  analogWrite(PIN_LCD_BACKLIGHT, 255);
+  analogWrite(PIN_LCD_BACKLIGHT, 180);
 
   GLCD.Init();
   GLCD.SelectFont(FONT);
@@ -58,14 +58,17 @@ void screenInitialize(void) {
   displaySplashScreen(cchs_logo);
 }
 
-void screenBacklightHandler(void) {      // TODO: Temporary example only
-  if (screenBacklightCounter == 0) {
-    screenBacklightCounter = SCREEN_BACKLIGHT_COUNT;
-    screenBacklightIncrement = - screenBacklightIncrement;
+void screenBacklightHandler(void) {
+  if (screenBacklightIncrement < 0) {  // Only fade in, then stop at highest value
+    if (screenBacklightCounter == 0) {
+      screenBacklightCounter = SCREEN_BACKLIGHT_COUNT;
+      screenBacklightIncrement = - screenBacklightIncrement;
+    }
+
+    screenBacklightCounter --;
+    screenBacklight += screenBacklightIncrement;
   }
 
-  screenBacklightCounter --;
-  screenBacklight += screenBacklightIncrement;
   analogWrite(PIN_LCD_BACKLIGHT, screenBacklight);
 }
 

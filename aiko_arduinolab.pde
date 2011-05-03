@@ -63,7 +63,7 @@ void setup(void) {
   Events.addHandler(clockHandler,           1000);
   Events.addHandler(outputTestHandler,       100);  // Testing only
   Events.addHandler(serialTestInputHandler,  100);  // Testing only
-//Events.addHandler(screenBacklightHandler,   50);  // Example only
+  Events.addHandler(screenBacklightHandler,   50);
   Events.addHandler(screenChangeHandler,    5000);
   Events.addHandler(screenOutputHandler,     100);
   Events.addHandler(stopwatchHandler,        100);
