@@ -51,7 +51,7 @@ char           *units) {   // Measurement unit appended to value
   dtostrf(value, 5, precision, buffer);
   strcat(buffer, units);
 
-  // TODO: Confirm why +2 was required, not +1 (accounting for 1 not 0 start ?)
+  // TODO: Confirm why +2 was required, not +1 (accounyting for 1 not 0 start ?)
   //byte x = POT_LABEL_LENGTH + 2;
   //if (potIndex == 2) x += GLCD.Width / 2;
 
@@ -61,7 +61,7 @@ char           *units) {   // Measurement unit appended to value
 
   gText textArea;
 
-  textArea.DefineArea(30, 10, 100, 50 );
+  textArea.DefineArea(30, 20, 100, 50 );
   textArea.SelectFont(fontwatch, BLACK); //FIXME! Was FONT (error with not declared messa)
   textArea.ClearArea();
   
