@@ -1,21 +1,20 @@
 /* screen.pde
- * ~~~~~~~~~~
- * Please do not remove the following notices.
- * License: GPLv3. http://geekscape.org/static/arduino_license.html
- * ----------------------------------------------------------------------------
- *
- * To Do
- * ~~~~~
- * - Automatically remove screen title after fixed time period.
- * - Screen backlight value in EEPROM, changeable via preferences screen.
- * - Initial screen value (specific index or most recent) in EEPROM,
- *     changable via preferences screen.
- * - Define a typedef for each struct.
- * - Only clear screen as required, use a flag.
- * - Only render screen as required, if an event has occurred ?
- * - Only display title/menu as required, up-to 10 seconds after screen change ?
- * - Provide "addScreen(title, renderFunction)".
- */
+* ~~~~~~~~~~
+* Please do not remove the following notices.
+* License: GPLv3. http://geekscape.org/static/arduino_license.html
+* ----------------------------------------------------------------------------
+*
+* To Do
+* ~~~~~
+* - Define a typedef for each struct.
+* - Break into individual screen files.
+* - Break out widgets into own file.
+* - Provide a "textarea" table to avoid duplication of dimension parameters.
+* - Only clear screen as required, use a flag.
+* - Only render screen as required, if an event has occurred ?
+* - Only display title/menu as required, up-to 10 seconds after screen change ?
+* - Provide "addScreen(title, renderFunction)".
+*/
 
 #include <glcd.h>
 #include "cchs_logo.h"
@@ -29,18 +28,18 @@ struct screenType {
 };
 
 const struct screenType screens[] = {
-  "1] Power Supply",   screenRenderTest1,
+  "1] Power Supply", screenRenderTest1,
   "2] Wave Generator", screenRenderTest2,
-  "3] Scribble",       screenRenderTest3,
-  "4] Graph",          screenRenderTest4,
-  "5] Stopwatch",      screenRenderTest5
+  "3] Scribble", screenRenderTest3,
+  "4] George", screenRenderTest4,
+  "5] Stop Watch", screenRenderTest5
 };
 
-const byte SCREEN_COUNT = sizeof(screens) / sizeof(screenType);
+const byte screenCount = sizeof(screens) / sizeof(screenType);
 
+byte screenInitialized = false;
 byte currentScreen = 0;
 byte screenChange = true;
-byte screenInitialized = false;
 
 int  screenBacklightIncrement = 4;
 const byte SCREEN_BACKLIGHT_COUNT = 255 / screenBacklightIncrement;
@@ -72,20 +71,20 @@ void screenBacklightHandler(void) {
   analogWrite(PIN_LCD_BACKLIGHT, screenBacklight);
 }
 
-void screenChangeHandler(void) {      // TODO: Temporary until navigation works
-  currentScreen = (currentScreen + 1) % SCREEN_COUNT;
+void screenChangeHandler(void) { // TODO: Temporary until navigation works
+  currentScreen = (currentScreen + 1) % screenCount;
   screenChange = true;
 }
 
 void screenOutputHandler(void) {
   if (! screenInitialized) screenInitialize();
 
-  if (secondCounter >= 3) {         // Disable splash screen: change '3' to '0'
+  if (secondCounter >= 3) {
     if (screenChange) GLCD.ClearScreen();
     screens[currentScreen].render();
 
     if (screenChange) displayTitle(screens[currentScreen].title);
-//  displayMenu(); ?
+// displayMenu(); ?
 
     screenChange = false;
   }
@@ -101,13 +100,13 @@ void displaySplashScreen(
 
   GLCD.ClearScreen();
   GLCD.DrawBitmap(icon, 0, 0);
-  GLCD.DrawString_P(sArduinoLab,       68,  0);
-  GLCD.DrawString_P(sGGHC,             86, 20);
-  GLCD.DrawString_P(s2011,             86, 36);
+  GLCD.DrawString_P(sArduinoLab, 68, 0);
+  GLCD.DrawString_P(sGGHC, 86, 20);
+  GLCD.DrawString_P(s2011, 86, 36);
   GLCD.DrawString_P(sHackMelbourneOrg, 26, 56);
 }
 
-void displayTitle(char *title) {              // TODO: title should use PROGMEM
+void displayTitle(char *title) { // TODO: title should use PROGMEM
   gText titleArea;
 
   titleArea.DefineArea(0, 0, GLCD.Width-1, 8);
@@ -116,11 +115,4 @@ void displayTitle(char *title) {              // TODO: title should use PROGMEM
   titleArea.DrawString(title, 1, 1);
 }
 
-void clearTitle() {
-  gText titleArea;
-
-  titleArea.DefineArea(0, 0, GLCD.Width-1, 8);
-  titleArea.SelectFont(FONT, BLACK);
-  titleArea.ClearArea();
-}
-
+/* ------------------------------------------------------------------------- */

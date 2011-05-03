@@ -37,7 +37,7 @@ void screenRenderTest3() {
   // Clear title after approx 2 seconds
 
   titletimer ++;
-  if (titletimer == 16) clearTitle();       // Approx 8 timer cycles per second
+//if (titletimer == 16) clearTitle();       // Approx 8 timer cycles per second
 
   for (unsigned long start = millis();  millis() - start < DURATION; ) {
     sr3_g_head_pos += TICK;
