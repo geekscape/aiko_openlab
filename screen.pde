@@ -44,7 +44,7 @@ byte screenInitialized = false;
 
 int  screenBacklightIncrement = 4;
 const byte SCREEN_BACKLIGHT_COUNT = 255 / screenBacklightIncrement;
-byte screenBacklightCounter = SCREEN_BACKLIGHT_COUNTER;
+byte screenBacklightCounter = SCREEN_BACKLIGHT_COUNT;
 byte screenBacklight = 0;
 
 void screenInitialize(void) {
@@ -59,7 +59,7 @@ void screenInitialize(void) {
 }
 
 void screenBacklightHandler(void) {
-  if (screenBacklightIncrement < 0) {  // Only fade in, then stop at highest value
+  if (screenBacklightIncrement > 0) {  // Only fade in, then stop at highest value
     if (screenBacklightCounter == 0) {
       screenBacklightCounter = SCREEN_BACKLIGHT_COUNT;
       screenBacklightIncrement = - screenBacklightIncrement;
