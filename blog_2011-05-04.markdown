@@ -1,7 +1,8 @@
 OpenLab (nee ArduinoLab) Software Overview
 ==========================================
 
-OpenLab software and instructions: https://github.com/geekscape/aiko_arduinolab
+OpenLab software and instructions:
+[https://github.com/geekscape/aiko_arduinolab](https://github.com/geekscape/aiko_arduinolab)
 
 Two important goals for the Great Global HackerSpace Challenge (GGHC) were
 to create something that was educational and that it would be easy and
@@ -73,8 +74,7 @@ This was critical when the inevitable hardware delivery delays occurred.
 High-level software design
 --------------------------
 
-BLOCK DIAGRAM: Screen (GLCD), navigation buttons, potentiometers, inputs/output
-               Event handlers set-up and invocation, Aiko time-based events
+![OpenLab software block diagram](http://geekscape.github.com/aiko_arduinolab/block_diagram.png)
 
 We wanted the OpenLab to provide a number of individual applications,
 each of which with it's own screen.
