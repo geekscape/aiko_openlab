@@ -1,0 +1,165 @@
+OpenLab (nee ArduinoLab) Software Overview
+==========================================
+
+OpenLab software and instructions: https://github.com/geekscape/aiko_arduinolab
+
+Two important goals for the Great Global HackerSpace Challenge (GGHC) were
+to create something that was educational and that it would be easy and
+affordable to replicate (by students or teachers). 
+
+From a hardware perspective, we tackled the educational aspect by taking
+lower-level hardware components and designing an integrated "product" that
+enables immediate use by students (or educators) who wish to enhance their
+experiments via electronic control and measurement.  Using low-cost hardware
+and open-source design reduces costs and enables customization.  As long as
+the main motherboard containing surface-mount components can be acquired
+(which we will enable), the remainder of the OpenLab can be built and
+assembled by high-school level students.
+
+So, how did we achieve those same goals with the OpenLab software ?
+
+By selecting an Arduino with it's simple-to-use, cross-platform IDE or
+utilizing excellent software libraries, like GLCD for the graphics
+LCD, we leveraged the extraordinary efforts of the open development
+community.
+
+However, we need to do more than just stand on the shoulders of other
+innovators !
+
+Since open software doesn't cost any money to acquire, then the other
+resource we can optimize is time.  All educators are very busy and often
+don't have the time to develop experimental equipment from scratch.
+
+We believed that providing a platform upon which tailored school projects
+can be easily and quickly enhanced would be beneficial.  In particular,
+being able to simply add a new application screen or customize an existing
+one would empower students and teachers.
+
+Additionally, the process of modifying or extending the OpenLab for a
+specific purpose is an educational exercise that shows students that
+they can customize a black-box to suit themselves.
+
+Software development approach
+-----------------------------
+
+One of our internal goals was to encourage multiple HackerSpace members,
+with varying experience levels, to contribute to the OpenLab software
+development.
+
+Using GitHub as the software (and hardware) repository is a good place
+to start.  However, that is not sufficient, for reasons as simple as
+having a single monolithic Arduino sketch is a problem, due to multiple
+developers working concurrently on the same file.
+
+Spliting an Arduino sketch into multiple files is straight-forward using
+the Arduino IDE.  However, the critical design aspect is to have modular
+components that can be reused (such as screen widgets, e.g display label)
+and that don't interact in an unfortunate fashion.
+
+We choose the "screen" as the part that developers create and made it
+very easy to add new screens and navigate between them.
+
+We avoid all delay() calls and instead use event handlers, which are called
+on a periodic basis, e.g. input handling and screen refresh at 10 Hz.
+This promotes the development of loosely coupled, independent components.
+
+The most significant issue in a short timeframe project is that it took
+most of that time before the completed hardware was ready for software
+development.  To mitigate this problem, the hardware engineers created
+a number of breadboarded graphics LCD and button input prototypes that
+enabled application development before the hardware was completed.
+This was critical when the inevitable hardware delivery delays occurred.
+
+High-level software design
+--------------------------
+
+BLOCK DIAGRAM: Screen (GLCD), navigation buttons, potentiometers, inputs/output
+               Event handlers set-up and invocation, Aiko time-based events
+
+We wanted the OpenLab to provide a number of individual applications,
+each of which with it's own screen.
+
+Some examples include input display of voltage/frequency as numbers or
+a graph, wave-form generation, or simple output voltage control or
+a stopwatch/timer (which could trigger some output event).
+
+In the OpenLab software, most components are written as C functions that
+are event handlers, typically called on a periodic basis by the framework.
+
+The main Arduino setup() function is used to add event handlers and
+state how often they should be invoked.  The two most notable event
+handlers are the graphical LCD screen output and the button /
+potentiometer input.
+
+The screen.pde manages the graphical LCD and allows developers to add new
+application screens.  The screenOutputHandler() is invoked at 10 Hz and
+it deals with handling screen changes, getting the current application
+screen to render and drawing screen titles.  The GLCD library provides
+many common low-level graphical and text primitives.  widget.pde provides
+some user interface components common to all OpenLab screens.
+
+There are no restrictions on individual application screens interacting
+directly with the input / output hardware.  However, the preference is
+to use the events provided by the input event handler.
+
+Low-level software design
+-------------------------
+
+The most significant under-the-covers software task was to change the
+GLCD library to work with the OpenLab Hardware.  Usually, GLCD expects
+a KS0108 compatible graphics LCD to be directly connected to the Arduno
+using 13 pins, which leaves few remaining pins for connecting other
+hardware.
+
+The OpenLab hardware solution was to utilize two shift registers that
+effectively turn the parallel KS0108 into a serial LCD, only requiring
+5 Arduino pins.
+
+Unfortunately, this configuration isn't supported by the GLCD library.
+
+Fortunately, GLCD is a well-designed and implemented library, which has
+a layered approach.  The top-most GLCD layers provide high-level graphics
+and text functions.  The middle GLCD layer, known as "glcd_Device" has a
+small API that provides graphics LCD primitives, e.g. initialization,
+write a command, read/write data, wait until ready.  The lowest GLCD
+layer interacts directly with the Arduino AVR pins.
+
+For OpenLab, a customized version of GLCD was created, which rewrites
+most of the lowest GLCD layer, e.g. "glcd_io.h" and replaces functions
+such as "lcd_avrWriteByte", "lcdfastWrite", "lcdDataDir" to use a
+pair of connected shift-registers.  Some minor modifications were
+required to the middle GLCD layer and the KS0108 configuration file.
+
+One concern with this approach is that it consumes a lot of RAM.
+Normally, the screen pixel data, approximately 1Kb, is held on
+the KS0108.  Whenever a pixel is set or cleared, the LCD memory
+is read, the pixel updated and the pixel date is written back
+out to the LCD.  Using the OpenLab shift register approach means
+that there is no way of reading data from the LCD, it's write-only.
+This means that the pixel data cache needs to be enabled in GLCD,
+which causes half of the available 2Kb of ATMega328 RAM to be
+consumed.
+
+If it is possible to make a simple, clean patch to GLCD, then that
+patch will be submitted to the original GLCD developers.
+
+Conclusion
+----------
+
+The OpenLab project was an excellent catalyst for bringing together a
+diverse set of hackers within our HackerSpace.  In particular, we had
+many people collaborating on the OpenLab software.
+
+Our experience was that people who felt they are still new to Arduino
+software development would be able to create simple, new OpenLab
+applications.
+
+At the end of this stage of the OpenLab project, which consists of
+submitting our final entry to the GGHC ... there is still plenty of 
+software to write to take complete advantage of the OpenLab hardware.
+
+We don't see the end of the GGHC as being the end of our project,
+but rather it is the beginning of the next stage.
+
+Thanks to element14 and all other competing HackerSpaces for making
+this such an interesting competition to be a part of.
