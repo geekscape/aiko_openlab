@@ -6,6 +6,10 @@
 *
 * To Do
 * ~~~~~
+ * - Automatically remove screen title after fixed time period.
+ * - Screen backlight value in EEPROM, changeable via preferences screen.
+ * - Initial screen value (specific index or most recent) in EEPROM,
+ *     changable via preferences screen.
 * - Define a typedef for each struct.
 * - Break into individual screen files.
 * - Break out widgets into own file.
@@ -28,11 +32,12 @@ struct screenType {
 };
 
 const struct screenType screens[] = {
-  "1] Power Supply", screenRenderTest1,
+  "1] Volt Meter", screenRenderTest1,
   "2] Wave Generator", screenRenderTest2,
   "3] Scribble", screenRenderTest3,
-  "4] George", screenRenderTest4,
-  "5] Stop Watch", screenRenderTest5
+  "4] Graph", screenRenderTest4,
+  "5] Stop Watch", screenRenderTest5,
+  "5] Preferences", screenRenderTest6
 };
 
 const byte screenCount = sizeof(screens) / sizeof(screenType);
@@ -113,6 +118,14 @@ void displayTitle(char *title) { // TODO: title should use PROGMEM
   titleArea.SelectFont(FONT, WHITE);
   titleArea.ClearArea();
   titleArea.DrawString(title, 1, 1);
+}
+
+void clearTitle() {
+  gText titleArea;
+
+  titleArea.DefineArea(0, 0, GLCD.Width-1, 8);
+  titleArea.SelectFont(FONT, BLACK);
+  titleArea.ClearArea();
 }
 
 /* ------------------------------------------------------------------------- */

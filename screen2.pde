@@ -18,8 +18,6 @@ PROGSTRING(sHelp1) = "This screen is used  "
                      "forms that can be    "
                      "produced as sound    ";
 
-PROGSTRING(sHelp2) = "via the speaker      ";
-
 void screenRenderTest2() {
   gText textArea;
 
