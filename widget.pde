@@ -14,6 +14,38 @@ const byte POT_VALUE_LENGTH = 6 * 7;            // 7 characters x 6 pixels wide
 
 /* ------------------------------------------------------------------------- */
 
+void displayTempLabel(
+  char *label) {                               // TODO: label could use PROGMEM
+
+  byte x = 1;
+  byte y = GLCD.Height - 9;
+  
+  drawString(label, WHITE, x, y, POT_LABEL_LENGTH);
+}
+
+/* ------------------------------------------------------------------------- */
+
+void displayTempValue(
+  long          value,      // Output value
+  unsigned char prec,      // Output value
+  char          *units) {   // Measurement unit appended to value
+
+  char buffer[12];
+
+  Serial.print("Temp: ");
+  Serial.println(value);
+  //dtostrf(value, 5, prec, buffer);
+  strcat(buffer, units);
+  
+  // TODO: Confirm why +2 was required, not +1 (accounting for 1 not 0 start ?)
+  byte x = POT_LABEL_LENGTH + 2;   
+  byte y = GLCD.Height - 9;
+  
+  drawString(buffer, BLACK, x, y, POT_VALUE_LENGTH);
+}
+
+/* ------------------------------------------------------------------------- */
+
 void displayHelpText(
   char *helpText) {                         // TODO: helpText could use PROGMEM
 
@@ -58,6 +90,20 @@ void displayPotValue(
   drawString(buffer, BLACK, x, y, POT_VALUE_LENGTH);
 }
 
+/* ------------------------------------------------------------------------- */
+
+void displayPotSelect(
+  byte           potIndex,   // Potentionmeter (knob) Identifier Index
+  char          *value)     // Output value
+ { 
+
+  // TODO: Confirm why +2 was required, not +1 (accounting for 1 not 0 start ?)
+  byte x = POT_LABEL_LENGTH + 2;
+  if (potIndex == 2) x += GLCD.Width / 2;
+  byte y = GLCD.Height - 9;
+
+  drawString(value, BLACK, x, y, POT_VALUE_LENGTH);
+}
 /* ------------------------------------------------------------------------- */
 
 void drawString(
