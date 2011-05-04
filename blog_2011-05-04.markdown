@@ -2,7 +2,8 @@ OpenLab (nee ArduinoLab) Software Overview
 ==========================================
 
 OpenLab software and instructions:
-[https://github.com/geekscape/aiko_arduinolab](https://github.com/geekscape/aiko_arduinolab)
+[OpenLab software repository](https://github.com/geekscape/aiko_arduinolab)
+[OpenLab software instructions](http://geekscape.github.com/aiko_arduinolab)
 
 ![OpenLab device](http://geekscape.github.com/aiko_arduinolab/openlab_device.jpg)
 
