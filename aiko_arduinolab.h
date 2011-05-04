@@ -45,3 +45,7 @@ const int PIN_LCD_ENABLE       = 4;   // Out: LCD shift-register output enable
 const int PIN_LCD_BUSY         = 5;   // In:  LCD data pin 7 (busy)
 const int PIN_POWER_AMP_OUTPUT = 6;   // In:  Power supply current output
 const int PIN_POWER_AMP_INPUT  = 7;   // In:  Power supply current input
+
+// Application options
+
+// #define APPLICATION_SINE_WAVE  // Experimental

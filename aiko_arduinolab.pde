@@ -22,6 +22,7 @@
  *
  * To Do
  * ~~~~~
+ * - Make use of #ifdef to "remove" unused code and reduce memoy usage.
  * - In general, only update LCD values when they change (avoid flicker).
  * - Move pinMode() to the appropriate application initialization function.
  * - Navigation between screens using 6-way button board.
@@ -30,7 +31,8 @@
  *   - Multimeter: Voltage and frequency input and output on each channel.
  *   - Graph: Waveform display: Simple oscilloscope.
  *   - Waveform generator.
- *   - Ruben's Tube and EEG projects.
+ *   - Ruben's Tube project: Integrate sine-wave application properly.
+ *   - EEG projects.
  *   * Game, e.g GLCD example "Rocket", pong (easter egg).
  *   - Preferences/control screen, plus AVR temperature.
  *   - Battery charge screen (next hardware revision) ?
@@ -49,8 +51,9 @@ using namespace Aiko;
 #include "aiko_arduinolab.h"
 
 void setup(void) {
-//setup_sine_wave();
-
+#ifdef APPLICATION_SINE_WAVE
+  setup_sine_wave(); // Experimental
+#else
   pinMode(PIN_SPEAKER,       OUTPUT);
   pinMode(PIN_LCD_BACKLIGHT, OUTPUT);
   pinMode(PIN_FREQUENCY,     INPUT);
@@ -67,12 +70,15 @@ void setup(void) {
   Events.addHandler(screenChangeHandler,    5000);
   Events.addHandler(screenOutputHandler,     100);
   Events.addHandler(stopwatchHandler,        100);
+#endif
 }
 
 void loop(void) {
-//loop_sine_wave();
-
+#ifdef APPLICATION_SINE_WAVE
+  loop_sine_wave();  // Experimental
+#else
   Events.loop();
+#endif
 }
 
 /* ------------------------------------------------------------------------- */
