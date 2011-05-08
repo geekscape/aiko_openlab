@@ -4,8 +4,8 @@
  * License: GPLv3. http://geekscape.org/static/arduino_license.html
  * Version: 0.0
  *
- * Documentation:  http://geekscape.github.com/aiko_arduinolab
- * Documentation:  https://github.com/lukeweston/ArduinoLab   # Hardware design
+ * Documentation:  http://geekscape.github.com/aiko_arduinolab       # Software
+ * Documentation:  https://github.com/lukeweston/ArduinoLab          # Hardware
  * ----------------------------------------------------------------------------
  *
  * Third-Party libraries

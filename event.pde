@@ -6,7 +6,7 @@
  *
  * To Do
  * ~~~~~
- * - None, yet.
+ * - Comment-out serial console debugging diagnostics, when finished.
  */
 
 void buttonEventSelect(void) {
