@@ -18,6 +18,8 @@ void buttonEventCancel(void) {
 }
 
 void buttonEventLeft(void) {
+  changeScreen(-1);
+
   Serial.println("buttonEventLeft()");
 }
 
@@ -30,6 +32,8 @@ void buttonEventUp(void) {
 }
 
 void buttonEventRight(void) {
+  changeScreen(1);
+
   Serial.println("buttonEventRight()");
 }
 

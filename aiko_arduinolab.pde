@@ -26,7 +26,6 @@
  * - Make use of #ifdef to "remove" unused code and reduce memoy usage.
  * - In general, only update LCD values when they change (avoid flicker).
  * - Move pinMode() to the appropriate application initialization function.
- * - Navigation between screens using 6-way button board.
  * - Potentiometer input and widgets.
  * - Potential screens ...
  *   - Multimeter: Voltage and frequency input and output on each channel.
@@ -68,7 +67,6 @@ void setup(void) {
 //Events.addHandler(outputTestHandler,       100);  // Testing only
   Events.addHandler(serialInputHandler,      100);
 //Events.addHandler(screenBacklightHandler,   50);
-//Events.addHandler(screenChangeHandler,    5000);
   Events.addHandler(screenOutputHandler,     100);
 //Events.addHandler(stopwatchHandler,        100);
   Events.addHandler(throbberHandler,        1000);

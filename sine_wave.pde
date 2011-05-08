@@ -29,7 +29,7 @@ void loop_sine_wave() {
 //analogWrite(PIN_OUTPUT_1, sine256[index]);
   analogWrite(PIN_OUTPUT_1, waveTest[index]);
 
-  index = (index + 1) % WAVE_COUNT;
+  cycleIncrement(index, 1, WAVE_COUNT);
 
 //delayMicroseconds(10);
   delayMicroseconds(1000);

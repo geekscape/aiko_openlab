@@ -40,7 +40,7 @@ const struct screenType screens[] = {
 //"Preferences",    screenRenderTest6
 };
 
-const byte screenCount = sizeof(screens) / sizeof(screenType);
+const byte SCREEN_COUNT = sizeof(screens) / sizeof(screenType);
 
 byte screenInitialized = false;
 byte currentScreen = 0;
@@ -76,6 +76,11 @@ void screenOutputHandler(void) {
   }
 }
 
+void changeScreen(byte increment) {
+  cycleIncrement(currentScreen, increment, SCREEN_COUNT);
+  screenChange = true;
+}
+
 void screenBacklightHandler(void) {
   if (screenBacklightIncrement > 0) {  // Only fade in, then stop at highest value
     if (screenBacklightCounter == 0) {
@@ -88,11 +93,6 @@ void screenBacklightHandler(void) {
   }
 
   analogWrite(PIN_LCD_BACKLIGHT, screenBacklight);
-}
-
-void screenChangeHandler(void) { // TODO: Temporary until navigation works
-  currentScreen = (currentScreen + 1) % screenCount;
-  screenChange = true;
 }
 
 /* ------------------------------------------------------------------------- */
