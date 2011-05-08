@@ -1,30 +1,31 @@
 <h1>OpenLab (nee ArduinoLab) Software Overview</h1>
 
-<p>OpenLab software and instructions:
-<a href="https://github.com/geekscape/aiko_arduinolab">OpenLab software repository</a>
-<a href="http://geekscape.github.com/aiko_arduinolab">OpenLab software instructions</a></p>
+<p><a href="https://github.com/geekscape/aiko_arduinolab">OpenLab software repository</a>
+and <a href="http://geekscape.github.com/aiko_arduinolab">software installation instructions</a></p>
 
 <p><img src="http://geekscape.github.com/aiko_arduinolab/openlab_device.jpg" alt="OpenLab device" title="" /></p>
 
-<p>Two important goals for the Great Global HackerSpace Challenge (GGHC) were
-to create something that was educational and that it would be easy and
-affordable to replicate (by students or teachers). </p>
+<p>Two important goals for the <a href="http://www.element14.com/community/groups/the-great-global-hackerspace-challenge">Great Global HackerSpace Challenge (GGHC)</a>
+were to create something that was educational and that it would be easy
+and affordable to replicate (by students or teachers). </p>
 
-<p>From a hardware perspective, we tackled the educational aspect by taking
-lower-level hardware components and designing an integrated "product" that
-enables immediate use by students (or educators) who wish to enhance their
-experiments via electronic control and measurement.  Using low-cost hardware
-and open-source design reduces costs and enables customization.  As long as
-the main motherboard containing surface-mount components can be acquired
-(which we will enable), the remainder of the OpenLab can be built and
-assembled by high-school level students.</p>
+<p>From a <a href="http://www.element14.com/community/groups/challengedownunder/blog/2011/04/25/challengedownunder-melbourne-hackerspace-week-4--hardware-design-walkthrough">hardware perspective</a>,
+we tackled the educational aspect by taking lower-level hardware components
+and designing an integrated "product" that enables immediate use by students
+(or educators) who wish to enhance their experiments via electronic control
+and measurement.  Using low-cost hardware and open-source design reduces costs
+and enables customization.  As long as the main motherboard containing
+surface-mount components can be acquired (which we will enable),
+the remainder of the OpenLab can be built and assembled by high-school level
+students.</p>
 
 <p>So, how did we achieve those same goals with the OpenLab software ?</p>
 
-<p>By selecting an Arduino with it's simple-to-use, cross-platform IDE or
-utilizing excellent software libraries, like GLCD for the graphics
-LCD, we leveraged the extraordinary efforts of the open development
-community.</p>
+<p>By selecting an <a href="http://arduino.cc">Arduino</a> with it's simple-to-use,
+cross-platform IDE or utilizing excellent software libraries, like
+<a href="http://www.arduino.cc/playground/Code/GLCDks0108">GLCD</a>
+for the graphics LCD, we leveraged the extraordinary efforts of the open
+development community.</p>
 
 <p>However, we need to do more than just stand on the shoulders of other
 innovators !</p>
@@ -61,9 +62,10 @@ and that don't interact in an unfortunate fashion.</p>
 <p>We choose the "screen" as the part that developers create and made it
 very easy to add new screens and navigate between them.</p>
 
-<p>We avoid all delay() calls and instead use event handlers, which are called
-on a periodic basis, e.g. input handling and screen refresh at 10 Hz.
-This promotes the development of loosely coupled, independent components.</p>
+<p>We <a href="https://github.com/geekscape/Aiko">avoid all delay() calls</a>
+and instead use event handlers, which are called on a periodic basis,
+e.g. input handling and screen refresh at 10 Hz.  This promotes the
+development of loosely coupled, independent components.</p>
 
 <p>The most significant issue in a short timeframe project is that it took
 most of that time before the completed hardware was ready for software
@@ -123,16 +125,16 @@ small API that provides graphics LCD primitives, e.g. initialization,
 write a command, read/write data, wait until ready.  The lowest GLCD
 layer interacts directly with the Arduino AVR pins.</p>
 
-<p>For OpenLab, a customized version of GLCD was created, which rewrites
-most of the lowest GLCD layer, e.g. "glcd<em>io.h" and replaces functions
-such as "lcd</em>avrWriteByte", "lcdfastWrite", "lcdDataDir" to use a
-pair of connected shift-registers.  Some minor modifications were
+<p>For OpenLab, a <a href="https://github.com/geekscape/aiko_arduinolab/blob/master/libraries/glcd_shiftRegister.tgz">customized version of GLCD</a>
+was created, which rewrites most of the lowest GLCD layer, e.g. "glcd_io.h"
+and replaces functions such as "lcd_avrWriteByte", "lcdfastWrite", "lcdDataDir"
+to use a pair of connected shift-registers.  Some minor modifications were
 required to the middle GLCD layer and the KS0108 configuration file.</p>
 
 <p>One concern with this approach is that it consumes a lot of RAM.
 Normally, the screen pixel data, approximately 1Kb, is held on
 the KS0108.  Whenever a pixel is set or cleared, the LCD memory
-is read, the pixel updated and the pixel date is written back
+is read, the pixel updated and the pixel data is written back
 out to the LCD.  Using the OpenLab shift register approach means
 that there is no way of reading data from the LCD, it's write-only.
 This means that the pixel data cache needs to be enabled in GLCD,
@@ -145,8 +147,8 @@ patch will be submitted to the original GLCD developers.</p>
 <h2>Conclusion</h2>
 
 <p>The OpenLab project was an excellent catalyst for bringing together a
-diverse set of hackers within our HackerSpace.  In particular, we had
-many people collaborating on the OpenLab software.</p>
+diverse set of hackers within our <a href="http://hackmelbourne.org">HackerSpace</a>.
+In particular, we had many people collaborating on the OpenLab software.</p>
 
 <p>Our experience was that people who felt they are still new to Arduino
 software development would be able to create simple, new OpenLab
@@ -159,5 +161,6 @@ software to write to take complete advantage of the OpenLab hardware.</p>
 <p>We don't see the end of the GGHC as being the end of our project,
 but rather it is the beginning of the next stage.</p>
 
-<p>Thanks to element14 and all other competing HackerSpaces for making
-this such an interesting competition to be a part of.</p>
+<p>Thanks to <a href="http://www.element14.com/community/groups/the-great-global-hackerspace-challenge">element14</a>
+and <a href="http://www.element14.com/community/groups/xinchejian-gghc/blog/2011/05/04/xinchejians-gghc-awards">all other competing HackerSpaces</a>
+for making this such an interesting competition to be a part of.</p>
