@@ -3,6 +3,9 @@ aiko_arduinolab
 Educational application with graphical LCD for general purpose input / output,
 waveform generation and display.
 
+[Software installation instructions](http://geekscape.github.com/aiko_arduinolab/) and
+[software design overview](http://geekscape.github.com/aiko_arduinolab/blog_2011-05-04.html).
+
 This firmware is specifically designed to run on this
 [ArduinoLab hardware](https://github.com/lukeweston/ArduinoLab) ...
 [(a detailed walk-through is available)](http://www.element14.com/community/groups/challengedownunder/blog/2011/04/25/challengedownunder-melbourne-hackerspace-week-4--hardware-design-walkthrough)
