@@ -12,15 +12,16 @@
  * ~~~~~
  * - None, yet.
  */
-#ifdef IGNORE
+
+/*
 PROGSTRING(sHelp1) = "This screen is used  "
                      "for generating wave  "
                      "forms that can be    "
                      "produced as sound    ";
+ */
 
 void screenRenderTest2() {
-  gText textArea;
-
+/*
   if (screenChange) {
     // char *helpText = char(sHelp1);
     // displayHelpText(helpText);
@@ -31,5 +32,5 @@ void screenRenderTest2() {
 
   displayPotValue(1,  2, 2, "K");
   displayPotValue(2, 50, 0, "mA");
+ */
 }
-#endif

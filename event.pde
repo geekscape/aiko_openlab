@@ -8,6 +8,7 @@
  * ~~~~~
  * - None, yet.
  */
+
 #ifdef IGNORE
 void buttonEventOkay(void) {
   Serial.println("buttonEventOkay()");

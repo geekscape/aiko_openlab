@@ -6,7 +6,7 @@
  *
  * To Do
  * ~~~~~
- * - None, yet.
+ * - displayPotValue() use of dtostrf() and strcat() is expensive !
  */
 
 const byte POT_LABEL_LENGTH = 6 * 3;            // 3 characters x 6 pixels wide

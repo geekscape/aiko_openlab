@@ -6,7 +6,7 @@
  *
  * Description
  * ~~~~~~~~~~~
- * Volt meter screen
+ * Multimeter screen
  *
  * To Do
  * ~~~~~

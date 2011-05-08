@@ -1,24 +1,22 @@
 /* screen.pde
-* ~~~~~~~~~~
-* Please do not remove the following notices.
-* License: GPLv3. http://geekscape.org/static/arduino_license.html
-* ----------------------------------------------------------------------------
-*
-* To Do
-* ~~~~~
+ * ~~~~~~~~~~
+ * Please do not remove the following notices.
+ * License: GPLv3. http://geekscape.org/static/arduino_license.html
+ * ----------------------------------------------------------------------------
+ *
+ * To Do
+ * ~~~~~
  * - Automatically remove screen title after fixed time period.
  * - Screen backlight value in EEPROM, changeable via preferences screen.
  * - Initial screen value (specific index or most recent) in EEPROM,
  *     changable via preferences screen.
-* - Define a typedef for each struct.
-* - Break into individual screen files.
-* - Break out widgets into own file.
-* - Provide a "textarea" table to avoid duplication of dimension parameters.
-* - Only clear screen as required, use a flag.
-* - Only render screen as required, if an event has occurred ?
-* - Only display title/menu as required, up-to 10 seconds after screen change ?
-* - Provide "addScreen(title, renderFunction)".
-*/
+ * - Define a typedef for each struct.
+ * - Provide a "textarea" table to avoid duplication of dimension parameters.
+ * - Only clear screen as required, use a flag.
+ * - Only render screen as required, if an event has occurred ?
+ * - Only display title/menu as required, up-to 10 seconds after screen change ?
+ * - Provide "addScreen(title, renderFunction)".
+ */
 
 #include <glcd.h>
 #include "cchs_logo.h"
@@ -32,8 +30,8 @@ struct screenType {
 };
 
 const struct screenType screens[] = {
-  "Multimeter",     screenRenderTest1
-//"Wave Generator", screenRenderTest2,
+  "Multimeter",     screenRenderTest1,
+  "Wave Generator", screenRenderTest2,
 //"Scribble",       screenRenderTest3,
 //"Graph",          screenRenderTest4,
 //"Stop Watch",     screenRenderTest5,

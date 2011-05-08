@@ -12,6 +12,7 @@
  * ~~~~~
  * - None, yet.
  */
+
 #ifdef IGNORE
 float sr3_g_head_pos = 0.0;
 
