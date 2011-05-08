@@ -72,6 +72,7 @@ void setup(void) {
   Events.addHandler(screenOutputHandler,     100);
 //Events.addHandler(stopwatchHandler,        100);
   Events.addHandler(throbberHandler,        1000);
+  Events.addHandler(userInputHandler,        100);
 #endif
 }
 

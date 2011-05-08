@@ -20,7 +20,7 @@ struct keyEventType {
 };
 
 const struct keyEventType keyEventMap[] = {
-  'y', buttonEventOkay,
+  'y', buttonEventSelect,
   'n', buttonEventCancel,
   'h', buttonEventLeft,
   'j', buttonEventDown,

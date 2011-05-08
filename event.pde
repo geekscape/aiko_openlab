@@ -9,8 +9,8 @@
  * - None, yet.
  */
 
-void buttonEventOkay(void) {
-  Serial.println("buttonEventOkay()");
+void buttonEventSelect(void) {
+  Serial.println("buttonEventSelect()");
 }
 
 void buttonEventCancel(void) {
