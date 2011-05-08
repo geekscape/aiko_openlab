@@ -6,15 +6,14 @@
  *
  * Description
  * ~~~~~~~~~~~
- * Provides a test serial communications handler that translates specific received characters
- * into navigation events.
+ * Provides a serial communications input handler that translates specific
+ * received characters into navigation events.
  *
  * To Do
  * ~~~~~
  * - None, yet.
  */
 
-#ifdef IGNORE
 struct keyEventType {
   byte key;
   void (*eventHandler)(void);
@@ -39,7 +38,7 @@ void serialInitialize(void) {
   serialInitialized = true;
 }
 
-void serialTestInputHandler(void) {
+void serialInputHandler(void) {
   if (! serialInitialized) serialInitialize();
 
   if (Serial.available() > 0) {
@@ -50,4 +49,5 @@ void serialTestInputHandler(void) {
     }
   }
 }
-#endif
+
+/* ------------------------------------------------------------------------- */

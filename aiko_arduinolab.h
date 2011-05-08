@@ -18,6 +18,7 @@
 
 const long DEFAULT_BAUD_RATE = 38400;
 
+/* ------------------------------------------------------------------------- */
 // Digital Input/Output pins
 
 const int PIN_SERIAL_RX        =  0;  // In:  USB or ZigBee receive
@@ -46,6 +47,13 @@ const int PIN_LCD_BUSY         = 5;   // In:  LCD data pin 7 (busy)
 const int PIN_POWER_AMP_OUTPUT = 6;   // In:  Power supply current output
 const int PIN_POWER_AMP_INPUT  = 7;   // In:  Power supply current input
 
+/* ------------------------------------------------------------------------- */
+
 // Application options
 
 // #define APPLICATION_SINE_WAVE  // Experimental
+
+// Useful macros
+
+#define cycleIncrement(index, increment, maximum)  \
+  index = (index + increment) % maximum

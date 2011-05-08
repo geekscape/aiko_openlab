@@ -9,7 +9,6 @@
  * - None, yet.
  */
 
-#ifdef IGNORE
 void buttonEventOkay(void) {
   Serial.println("buttonEventOkay()");
 }
@@ -33,4 +32,5 @@ void buttonEventUp(void) {
 void buttonEventRight(void) {
   Serial.println("buttonEventRight()");
 }
-#endif
+
+/* ------------------------------------------------------------------------- */

@@ -24,6 +24,8 @@
 
 const Font_t FONT = System5x7;
 
+const byte SPLASH_SCREEN_PERIOD = 3;
+
 struct screenType {
   char *title;
   void (*render)(void);
@@ -60,6 +62,20 @@ void screenInitialize(void) {
   displaySplashScreen(cchs_logo);
 }
 
+void screenOutputHandler(void) {
+  if (! screenInitialized) screenInitialize();
+
+  if (secondCounter >= SPLASH_SCREEN_PERIOD) {
+    if (screenChange) GLCD.ClearScreen();
+    screens[currentScreen].render();
+
+    if (screenChange) displayTitle(screens[currentScreen].title);
+// displayMenu(); ?
+
+    screenChange = false;
+  }
+}
+
 void screenBacklightHandler(void) {
   if (screenBacklightIncrement > 0) {  // Only fade in, then stop at highest value
     if (screenBacklightCounter == 0) {
@@ -79,19 +95,7 @@ void screenChangeHandler(void) { // TODO: Temporary until navigation works
   screenChange = true;
 }
 
-void screenOutputHandler(void) {
-  if (! screenInitialized) screenInitialize();
-
-  if (secondCounter >= 3) {
-    if (screenChange) GLCD.ClearScreen();
-    screens[currentScreen].render();
-
-    if (screenChange) displayTitle(screens[currentScreen].title);
-// displayMenu(); ?
-
-    screenChange = false;
-  }
-}
+/* ------------------------------------------------------------------------- */
 
 PROGSTRING(sArduinoLab) = "ArduinoLab";
 PROGSTRING(sGGHC) = "GGHC";
@@ -109,6 +113,14 @@ void displaySplashScreen(
   GLCD.DrawString_P(sHackMelbourneOrg, 26, 56);
 }
 
+void clearTitle() {
+  gText titleArea;
+
+  titleArea.DefineArea(0, 0, GLCD.Width-1, 8);
+  titleArea.SelectFont(FONT, BLACK);
+  titleArea.ClearArea();
+}
+
 void displayTitle(char *title) { // TODO: title should use PROGMEM
   gText titleArea;
 
@@ -118,12 +130,21 @@ void displayTitle(char *title) { // TODO: title should use PROGMEM
   titleArea.DrawString(title, 1, 1);
 }
 
-void clearTitle() {
-  gText titleArea;
+/* ------------------------------------------------------------------------- */
 
-  titleArea.DefineArea(0, 0, GLCD.Width-1, 8);
-  titleArea.SelectFont(FONT, BLACK);
-  titleArea.ClearArea();
+byte throbberIndex = 0;
+
+char throbber[] = "|\0/\0-\0\\\0|\0/\0-\0\\";     // "\" is an escape character
+
+const byte THROBBER_COUNT = sizeof(throbber) / sizeof(byte);
+
+void throbberHandler(void) {
+  if (secondCounter >= SPLASH_SCREEN_PERIOD) {
+    GLCD.SelectFont(FONT, WHITE);
+    GLCD.DrawString(& throbber[throbberIndex], GLCD.Width - 6, 1);
+
+    cycleIncrement(throbberIndex, 2, THROBBER_COUNT);
+  }
 }
 
 /* ------------------------------------------------------------------------- */

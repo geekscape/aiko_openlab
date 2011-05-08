@@ -66,11 +66,12 @@ void setup(void) {
 
   Events.addHandler(clockHandler,           1000);
 //Events.addHandler(outputTestHandler,       100);  // Testing only
-//Events.addHandler(serialTestInputHandler,  100);  // Testing only
+  Events.addHandler(serialInputHandler,      100);
 //Events.addHandler(screenBacklightHandler,   50);
 //Events.addHandler(screenChangeHandler,    5000);
   Events.addHandler(screenOutputHandler,     100);
 //Events.addHandler(stopwatchHandler,        100);
+  Events.addHandler(throbberHandler,        1000);
 #endif
 }
 
@@ -114,6 +115,8 @@ void outputTestHandler(void) {
   digitalWrite(PIN_OUTPUT_2, outputStates[outputStateIndex].output2);
   digitalWrite(PIN_OUTPUT_3, outputStates[outputStateIndex].output3);
 
-  outputStateIndex = (outputStateIndex + 1) % OUTPUT_STATE_COUNT;
+  cycleIncrement(outputStateIndex, 1, OUTPUT_STATE_COUNT);
 }
 #endif
+
+/* ------------------------------------------------------------------------- */
