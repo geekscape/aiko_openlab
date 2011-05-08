@@ -12,7 +12,7 @@
  * ~~~~~
  * - None, yet.
  */
-
+#ifdef IGNORE
 void drawGeoAxes() {
   GLCD.DrawLine(10, (int)(GLCD.Height/2), GLCD.Width-10, (int)(GLCD.Height/2), BLACK); // Horizontal Line
   GLCD.DrawLine((int)(GLCD.Width/2), 10, (int)(GLCD.Width/2), 50 , BLACK); // Vertical Line
@@ -32,3 +32,4 @@ void screenRenderTest4() {
   strcat(test, "V");
   drawString(test, BLACK, 32, 55, 32);
 }
+#endif

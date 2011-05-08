@@ -22,6 +22,7 @@
  *
  * To Do
  * ~~~~~
+ * - Move outputTestHandler() somewhere better than "aiko_arduinolab.pde".
  * - Make use of #ifdef to "remove" unused code and reduce memoy usage.
  * - In general, only update LCD values when they change (avoid flicker).
  * - Move pinMode() to the appropriate application initialization function.
@@ -61,15 +62,15 @@ void setup(void) {
   pinMode(PIN_OUTPUT_2,      OUTPUT);
   pinMode(PIN_OUTPUT_3,      OUTPUT);
   pinMode(PIN_AN_MUX_SELECT, OUTPUT);
-  pinMode(PIN_ZIGBEE_SLEEP,  OUTPUT);
+//pinMode(PIN_ZIGBEE_SLEEP,  OUTPUT);
 
   Events.addHandler(clockHandler,           1000);
-  Events.addHandler(outputTestHandler,       100);  // Testing only
-  Events.addHandler(serialTestInputHandler,  100);  // Testing only
-  Events.addHandler(screenBacklightHandler,   50);
-  Events.addHandler(screenChangeHandler,    5000);
+//Events.addHandler(outputTestHandler,       100);  // Testing only
+//Events.addHandler(serialTestInputHandler,  100);  // Testing only
+//Events.addHandler(screenBacklightHandler,   50);
+//Events.addHandler(screenChangeHandler,    5000);
   Events.addHandler(screenOutputHandler,     100);
-  Events.addHandler(stopwatchHandler,        100);
+//Events.addHandler(stopwatchHandler,        100);
 #endif
 }
 
@@ -83,6 +84,14 @@ void loop(void) {
 
 /* ------------------------------------------------------------------------- */
 
+long secondCounter = 0;
+
+void clockHandler(void) {
+  ++ secondCounter;
+}
+
+/* ------------------------------------------------------------------------- */
+#ifdef IGNORE
 struct outputState {
   boolean output1;
   boolean output2;
@@ -98,10 +107,6 @@ const struct outputState outputStates[] = {
 
 const byte OUTPUT_STATE_COUNT = sizeof(outputStates) / sizeof(outputState);
 
-boolean stopwatchRunning = false;
-long    stopwatchCounter = 0;
-
-
 int outputStateIndex = 0;
 
 void outputTestHandler(void) {
@@ -111,11 +116,4 @@ void outputTestHandler(void) {
 
   outputStateIndex = (outputStateIndex + 1) % OUTPUT_STATE_COUNT;
 }
-
-/* ------------------------------------------------------------------------- */
-
-long secondCounter = 0;
-
-void clockHandler(void) {
-  ++ secondCounter;
-}
+#endif

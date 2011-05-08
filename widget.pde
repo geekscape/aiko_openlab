@@ -12,6 +12,7 @@
 const byte POT_LABEL_LENGTH = 6 * 3;            // 3 characters x 6 pixels wide
 const byte POT_VALUE_LENGTH = 6 * 7;            // 7 characters x 6 pixels wide
 
+#ifdef IGNORE
 /* ------------------------------------------------------------------------- */
 
 void displayTempLabel(
@@ -55,7 +56,7 @@ void displayHelpText(
   helpArea.SelectFont(FONT, BLACK);
   helpArea.DrawString_P(helpText, 0, 0);
 }
-
+#endif
 /* ------------------------------------------------------------------------- */
 
 void displayPotLabel(

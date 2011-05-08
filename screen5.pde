@@ -15,9 +15,11 @@
  * - Timer, which sets off the buzzer.
  */
 
-//#include "fonts/SystemFont5x7.h"
+#ifdef IGNORE
 #include "fonts/fixednums15x31.h"
 
+boolean stopwatchRunning = false;
+long    stopwatchCounter = 0;
 
 int titlestoptimer = 0;                                   // TODO: Work in progress
 const Font_t fontwatch = fixednums15x31;
@@ -68,3 +70,4 @@ char           *units) {   // Measurement unit appended to value
   textArea.DrawString(buffer, 1, 1);
 
 }
+#endif

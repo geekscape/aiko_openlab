@@ -8,15 +8,13 @@
  * ~~~~~
  * - None, yet.
  */
-
+#ifdef IGNORE
 void buttonEventOkay(void) {
   Serial.println("buttonEventOkay()");
-  stopwatchRunning = !stopwatchRunning;
 }
 
 void buttonEventCancel(void) {
   Serial.println("buttonEventCancel()");
-  stopwatchCounter=0;
 }
 
 void buttonEventLeft(void) {
@@ -34,3 +32,4 @@ void buttonEventUp(void) {
 void buttonEventRight(void) {
   Serial.println("buttonEventRight()");
 }
+#endif

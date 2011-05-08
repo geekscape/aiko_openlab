@@ -12,7 +12,7 @@
  * ~~~~~
  * - None, yet.
  */
-
+#ifdef IGNORE
 float sr3_g_head_pos = 0.0;
 
 int titletimer = 0;                                   // TODO: Work in progress
@@ -67,3 +67,4 @@ byte fn_y(float tick) {
     ((GLCD.Height-11) / 2 + ((GLCD.Height-11) / 2 - 1) *
       cos(tick * 1.2) * sin(tick * 3.1));
 }
+#endif

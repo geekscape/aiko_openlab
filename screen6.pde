@@ -6,13 +6,13 @@
  *
  * Description
  * ~~~~~~~~~~~
- * Volt meter screen
+ * - None, yet.
  *
  * To Do
  * ~~~~~
  * - None, yet.
  */
-
+#ifdef IGNORE
 long Temp = 0;
 
 void screenRenderTest6() {
@@ -38,4 +38,4 @@ long readTemp() {
   result = (result - 125) * 1075;
   return result;
 }
-
+#endif

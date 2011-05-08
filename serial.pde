@@ -13,7 +13,7 @@
  * ~~~~~
  * - None, yet.
  */
-
+#ifdef IGNORE
 struct keyEventType {
   byte key;
   void (*eventHandler)(void);
@@ -49,3 +49,4 @@ void serialTestInputHandler(void) {
     }
   }
 }
+#endif
