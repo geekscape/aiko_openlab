@@ -32,7 +32,7 @@ struct screenType {
 };
 
 const struct screenType screens[] = {
-  "Multimeter",     screenRenderTest1,
+//"Multimeter",     screenRenderTest1,
   "Wave Generator", screenRenderTest2,
 //"Scribble",       screenRenderTest3,
 //"Graph",          screenRenderTest4,

@@ -7,13 +7,14 @@ byte sine256[]  = {
   33,35,37,39,42,44,46,49,51,54,56,59,62,64,67,70,73,76,78,81,84,87,90,93,96,99,102,105,108,111,115,118,121,124
 };
 
-//const byte WAVE_COUNT = sizeof(sine256) / sizeof(byte);
+// const byte WAVE_COUNT = sizeof(sine256) / sizeof(byte);
+#define WAVE_COUNT 256
 
 byte waveTest[]  = {
   64, 127, 255
 };
 
-const byte WAVE_COUNT = sizeof(waveTest) / sizeof(byte);
+// const byte WAVE_COUNT = sizeof(waveTest) / sizeof(byte);
 
 float ce3k_freq[] = {
   880.0, 987.0, 783.0, 392.0, 587.0
@@ -23,15 +24,27 @@ int index = 0;
 
 void setup_sine_wave() {
   pinMode(PIN_OUTPUT_1, OUTPUT);
+//Serial.begin(38400);
+//Serial.print("WAVE_COUNT: ");
+//Serial.println((int) WAVE_COUNT);
 }
 
 void loop_sine_wave() {
-//analogWrite(PIN_OUTPUT_1, sine256[index]);
-  analogWrite(PIN_OUTPUT_1, waveTest[index]);
+#ifdef IGNORE
+//Serial.print(index);
+//Serial.print(": ");
+//Serial.println((int) sine256[index]);
+//delay(100);
+  analogWrite(PIN_OUTPUT_1, sine256[index]);
+//analogWrite(PIN_OUTPUT_1, waveTest[index]);
 
   cycleIncrement(index, 1, WAVE_COUNT);
 
-//delayMicroseconds(10);
-  delayMicroseconds(1000);
+  delayMicroseconds(4);
+#endif
+  digitalWrite(PIN_OUTPUT_1, HIGH);
+  delay(1);
+  digitalWrite(PIN_OUTPUT_1, LOW);
+  delay(1);
 }
 #endif

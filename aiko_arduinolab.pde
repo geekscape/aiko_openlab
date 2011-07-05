@@ -22,6 +22,7 @@
  *
  * To Do
  * ~~~~~
+ * - Review RAM usage: http://jeelabs.org/2011/05/22/atmega-memory-use
  * - Move outputTestHandler() somewhere better than "aiko_arduinolab.pde".
  * - Make use of #ifdef to "remove" unused code and reduce memoy usage.
  * - In general, only update LCD values when they change (avoid flicker).
@@ -72,6 +73,8 @@ void setup(void) {
   Events.addHandler(throbberHandler,        1000);
   Events.addHandler(userInputHandler,        100);
 #endif
+
+  printFreeRam();
 }
 
 void loop(void) {
@@ -88,6 +91,20 @@ long secondCounter = 0;
 
 void clockHandler(void) {
   ++ secondCounter;
+}
+
+/* ------------------------------------------------------------------------- */
+// http://jeelabs.org/2011/05/22/atmega-memory-use
+
+int freeRam(void) {
+  extern int __heap_start, *__brkval; 
+  int v; 
+  return (int) &v - (__brkval == 0 ? (int) &__heap_start : (int) __brkval); 
+}
+
+void printFreeRam () {
+  Serial.println("Free RAM: ");
+  Serial.println(freeRam());
 }
 
 /* ------------------------------------------------------------------------- */
