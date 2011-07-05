@@ -1,11 +1,11 @@
-/* aiko_arduinolab.pde
- * ~~~~~~~~~~~~~~~~~~~
+/* aiko_openlab.pde
+ * ~~~~~~~~~~~~~~~~
  * Please do not remove the following notices.
  * License: GPLv3. http://geekscape.org/static/arduino_license.html
  * Version: 0.0
  *
- * Documentation:  http://geekscape.github.com/aiko_arduinolab       # Software
- * Documentation:  https://github.com/lukeweston/ArduinoLab          # Hardware
+ * Documentation:  http://geekscape.github.com/aiko_openlab          # Software
+ * Documentation:  https://github.com/lukeweston/OpenLab             # Hardware
  * ----------------------------------------------------------------------------
  *
  * Third-Party libraries
@@ -23,7 +23,7 @@
  * To Do
  * ~~~~~
  * - Review RAM usage: http://jeelabs.org/2011/05/22/atmega-memory-use
- * - Move outputTestHandler() somewhere better than "aiko_arduinolab.pde".
+ * - Move outputTestHandler() somewhere better than "aiko_openlab.pde".
  * - Make use of #ifdef to "remove" unused code and reduce memoy usage.
  * - In general, only update LCD values when they change (avoid flicker).
  * - Move pinMode() to the appropriate application initialization function.
@@ -49,7 +49,7 @@
 #include <AikoEvents.h>
 using namespace Aiko;
 
-#include "aiko_arduinolab.h"
+#include "aiko_openlab.h"
 
 void setup(void) {
 #ifdef APPLICATION_SINE_WAVE

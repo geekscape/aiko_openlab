@@ -97,7 +97,7 @@ void screenBacklightHandler(void) {
 
 /* ------------------------------------------------------------------------- */
 
-PROGSTRING(sArduinoLab) = "ArduinoLab";
+PROGSTRING(sOpenLab) = "OpenLab";
 PROGSTRING(sGGHC) = "GGHC";
 PROGSTRING(s2011) = "2011";
 PROGSTRING(sHackMelbourneOrg) = "hackmelbourne.org";
@@ -107,7 +107,7 @@ void displaySplashScreen(
 
   GLCD.ClearScreen();
   GLCD.DrawBitmap(icon, 0, 0);
-  GLCD.DrawString_P(sArduinoLab, 68, 0);
+  GLCD.DrawString_P(sOpenLab, 68, 0);
   GLCD.DrawString_P(sGGHC, 86, 20);
   GLCD.DrawString_P(s2011, 86, 36);
   GLCD.DrawString_P(sHackMelbourneOrg, 26, 56);
