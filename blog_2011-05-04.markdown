@@ -1,10 +1,10 @@
 OpenLab (nee ArduinoLab) Software Overview
 ==========================================
 
-[OpenLab software repository](https://github.com/geekscape/aiko_arduinolab)
-and [software installation instructions](http://geekscape.github.com/aiko_arduinolab)
+[OpenLab software repository](https://github.com/geekscape/aiko_openlab)
+and [software installation instructions](http://geekscape.github.com/aiko_openlab)
 
-![OpenLab device](http://geekscape.github.com/aiko_arduinolab/openlab_device.jpg)
+![OpenLab device](http://geekscape.github.com/aiko_openlab/openlab_device.jpg)
 
 Two important goals for the [Great Global HackerSpace Challenge (GGHC)](http://www.element14.com/community/groups/the-great-global-hackerspace-challenge)
 were to create something that was educational and that it would be easy
@@ -79,7 +79,7 @@ This was critical when the inevitable hardware delivery delays occurred.
 High-level software design
 --------------------------
 
-![OpenLab software block diagram](http://geekscape.github.com/aiko_arduinolab/block_diagram.png)
+![OpenLab software block diagram](http://geekscape.github.com/aiko_openlab/block_diagram.png)
 
 We wanted the OpenLab to provide a number of individual applications,
 each of which with it's own screen.
@@ -129,7 +129,7 @@ small API that provides graphics LCD primitives, e.g. initialization,
 write a command, read/write data, wait until ready.  The lowest GLCD
 layer interacts directly with the Arduino AVR pins.
 
-For OpenLab, a [customized version of GLCD](https://github.com/geekscape/aiko_arduinolab/blob/master/libraries/glcd_shiftRegister.tgz)
+For OpenLab, a [customized version of GLCD](https://github.com/geekscape/aiko_openlab/blob/master/libraries/glcd_shiftRegister.tgz)
 was created, which rewrites most of the lowest GLCD layer, e.g. "glcd\_io.h"
 and replaces functions such as "lcd_avrWriteByte", "lcdfastWrite", "lcdDataDir"
 to use a pair of connected shift-registers.  Some minor modifications were

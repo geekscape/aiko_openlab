@@ -1,9 +1,9 @@
 <h1>OpenLab (nee ArduinoLab) Software Overview</h1>
 
-<p><a href="https://github.com/geekscape/aiko_arduinolab">OpenLab software repository</a>
-and <a href="http://geekscape.github.com/aiko_arduinolab">software installation instructions</a></p>
+<p><a href="https://github.com/geekscape/aiko_openlab">OpenLab software repository</a>
+and <a href="http://geekscape.github.com/aiko_openlab">software installation instructions</a></p>
 
-<p><img src="http://geekscape.github.com/aiko_arduinolab/openlab_device.jpg" alt="OpenLab device" title="" /></p>
+<p><img src="http://geekscape.github.com/aiko_openlab/openlab_device.jpg" alt="OpenLab device" title="" /></p>
 
 <p>Two important goals for the <a href="http://www.element14.com/community/groups/the-great-global-hackerspace-challenge">Great Global HackerSpace Challenge (GGHC)</a>
 were to create something that was educational and that it would be easy
@@ -76,7 +76,7 @@ This was critical when the inevitable hardware delivery delays occurred.</p>
 
 <h2>High-level software design</h2>
 
-<p><img src="http://geekscape.github.com/aiko_arduinolab/block_diagram.png" alt="OpenLab software block diagram" title="" /></p>
+<p><img src="http://geekscape.github.com/aiko_openlab/block_diagram.png" alt="OpenLab software block diagram" title="" /></p>
 
 <p>We wanted the OpenLab to provide a number of individual applications,
 each of which with it's own screen.</p>
@@ -125,7 +125,7 @@ small API that provides graphics LCD primitives, e.g. initialization,
 write a command, read/write data, wait until ready.  The lowest GLCD
 layer interacts directly with the Arduino AVR pins.</p>
 
-<p>For OpenLab, a <a href="https://github.com/geekscape/aiko_arduinolab/blob/master/libraries/glcd_shiftRegister.tgz">customized version of GLCD</a>
+<p>For OpenLab, a <a href="https://github.com/geekscape/aiko_openlab/blob/master/libraries/glcd_shiftRegister.tgz">customized version of GLCD</a>
 was created, which rewrites most of the lowest GLCD layer, e.g. "glcd_io.h"
 and replaces functions such as "lcd_avrWriteByte", "lcdfastWrite", "lcdDataDir"
 to use a pair of connected shift-registers.  Some minor modifications were
