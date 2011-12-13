@@ -32,9 +32,12 @@ char *pot2Options[] = {
 const byte POT1_OPT_COUNT = sizeof(pot1Options) / sizeof(char);
 const byte POT2_OPT_COUNT = sizeof(pot2Options) / sizeof(char);
 
-int pot1Index = 0;
+// Set the pot indicies to -1 so they are forced to refresh
+//  on startup if it starts on this screen, since the label
+//  only refreshes when the value changes
+int pot1Index = -1;
 int newPot1Index = 0;
-int pot2Index = 0;
+int pot2Index = -1;
 int newPot2Index = 0;
 
 //int analoginput = 0;
