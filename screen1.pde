@@ -47,23 +47,20 @@ float R1 = 10000.0;    // !! resistance of R1 !!
 float R2 = 3300.0;     // !! resistance of R2 !!
 float vin = 0.0;
 
-void screenRenderTest1() {
+void screenVoltMeter() {
   // Display the labels for the pots on the first frame we show this screen
   if (screenChange) {
     displayPotLabel(1, "Rng");
-    //pinPot1 = 0;  // Test only
 
     displayPotLabel(2, "Mde");
-   // pinPot2 = 0;  // Test only   
 
-    //PIN_ANALOG_INPUT
     pinMode(PIN_ANALOG_INPUT, INPUT);
     //lcd.begin(16, 2);
     delay(100);
   }
 
-  // TODO: Retreive Pot inputs and set values to display;
-  
+  // Read the Pot inputs, and using that information, change
+  //  if we are reading mV or V, and if we're reading DC or AC
   int potValue = readPot(1);
   if (potValue >= 512) newPot1Index = 1;
   else newPot1Index = 0;
@@ -93,26 +90,7 @@ void screenRenderTest1() {
   GLCD.print(vin,2);
 }
 
-
-void screenVoltMeter() {
-  //#include <LiquidCrystal.h>
-  //LiquidCrystal lcd(4, 5, 6, 9, 10, 11, 12);
-  
-  
-   // read the value on analog input
-   value = analogRead(PIN_ANALOG_INPUT);
-   vout= (value * 5.0)/1024.0;  //voltage coming out of the voltage divider
-   vin = vout / (R2/(R1+R2));  //voltage to display
-   
-   //lcd.setCursor(0,0);
-   //lcd.println(vin, 1);   //Print float "vin" with 1 decimal
-   
-   //lcd.setCursor(11,0);
-   //lcd.print("Volts");
-   
-  delay(1400);
-}
-
+// This function reads the Analog VCC?  I'm (Alan) not sure.
 long readVcc() {
   long result;
   // Read 1.1V reference against AVcc

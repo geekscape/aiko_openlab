@@ -33,7 +33,7 @@ struct screenType {
 };
 
 const struct screenType screens[] = {
-  "Multimeter",     screenRenderTest1,
+  "Multimeter",     screenVoltMeter,
   "Wave Generator", screenRenderTest2,
 //"Scribble",       screenRenderTest3,
 //"Graph",          screenRenderTest4,
@@ -96,9 +96,13 @@ void screenOutputHandler(void) {
   }
 }
 
-void changeScreen(byte increment) {
+void changeScreen(int8_t increment) {
   cycleIncrement(currentScreen, increment, SCREEN_COUNT);
   screenChange = true;
+}
+
+int cycleScreen(int index, int increment, int maximum) {
+  return ((index + 1) + (increment + 1) % maximum;
 }
 
 void screenBacklightHandler(void) {

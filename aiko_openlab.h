@@ -56,4 +56,4 @@ const int PIN_POWER_AMP_INPUT  = 7;   // In:  Power supply current input
 // Useful macros
 
 #define cycleIncrement(index, increment, maximum)  \
-  index = (index + increment) % maximum
+  index = ((index + maximum) + increment) % maximum
