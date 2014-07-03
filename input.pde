@@ -10,7 +10,6 @@
  *
  * To Do
  * ~~~~~
- * - Read potentiometer knob inputs.
  * - Holding button down causes repetitive event generation.
  * - Holding button down for a long time performs some action, e.g preferences.
  */
@@ -52,6 +51,24 @@ void userInputHandler(void) {
 
     if (buttonIndex > 0) (* buttonEventMap[buttonIndex].eventHandler)();
   }
+}
+
+// This function returns the analog value controlled by the knob 
+//  potentiometers on the face of the unit.
+//  INPUT - 1 or 2.  Any other value will return -1.
+//  OUTPUT - A value between 0 and 1023, inclusive, as if you did
+//            an analogRead() on the pot.
+//  Notes - This function spends time restoring PIN_AN_MUX_SELECT 
+//           to its original value.
+int readPot(int potentiometerNumber){
+  int oldAnMuxValue = digitalRead(PIN_AN_MUX_SELECT);
+  // The analog multiplexer will read from Pot 1 if PIN_AN_MUX_SELECT is 0, and will
+  //   read from Pot 2 if PIN_AN_MUX_SELECT is 1.  Makes it easy, no?
+  potentiometerNumber--;
+  digitalWrite(PIN_AN_MUX_SELECT, potentiometerNumber);
+  int analogValue = analogRead(PIN_AN_MUX_INPUT_X);
+  digitalWrite(PIN_AN_MUX_INPUT_X, oldAnMuxValue);
+  return analogValue;
 }
 
 /* ------------------------------------------------------------------------- */

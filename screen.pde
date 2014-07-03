@@ -6,7 +6,8 @@
  *
  * To Do
  * ~~~~~
- * - Automatically remove screen title after fixed time period.
+ * - CHECK THIS Automatically remove screen title after fixed time period.
+ *    - Edit openlab.pde to move constant time values into the .h file
  * - Screen backlight value in EEPROM, changeable via preferences screen.
  * - Initial screen value (specific index or most recent) in EEPROM,
  *     changable via preferences screen.
@@ -32,7 +33,7 @@ struct screenType {
 };
 
 const struct screenType screens[] = {
-//"Multimeter",     screenRenderTest1,
+  "Multimeter",     screenVoltMeter,
   "Wave Generator", screenRenderTest2,
 //"Scribble",       screenRenderTest3,
 //"Graph",          screenRenderTest4,
@@ -45,6 +46,11 @@ const byte SCREEN_COUNT = sizeof(screens) / sizeof(screenType);
 byte screenInitialized = false;
 byte currentScreen = 0;
 byte screenChange = true;
+
+byte titleDisplayCountdown = 0;
+// This is calculated as seconds to show title times how many
+//  screen refreshes per second.
+const byte REFRESH_CYCLES_TO_SHOW_TITLE = 100;
 
 int  screenBacklightIncrement = 4;
 const byte SCREEN_BACKLIGHT_COUNT = 255 / screenBacklightIncrement;
@@ -62,6 +68,12 @@ void screenInitialize(void) {
   displaySplashScreen(cchs_logo);
 }
 
+// This function is called at regular intervals (defined in aiko_openlab.pde)
+//  It is the top level of screen display functions - it handles:
+//   - Screen initialization at startup
+//   - Clearing the screen on screen change
+//   - Calling the current screen's render() function
+//   - Displaying the screen's title
 void screenOutputHandler(void) {
   if (! screenInitialized) screenInitialize();
 
@@ -69,16 +81,28 @@ void screenOutputHandler(void) {
     if (screenChange) GLCD.ClearScreen();
     screens[currentScreen].render();
 
-    if (screenChange) displayTitle(screens[currentScreen].title);
+    if (screenChange){
+      displayTitle(screens[currentScreen].title);
+      titleDisplayCountdown = REFRESH_CYCLES_TO_SHOW_TITLE;
+    }
+    if (titleDisplayCountdown > 0){
+      if (titleDisplayCountdown == 1) clearTitle();
+      titleDisplayCountdown--;
+    }
+    
 // displayMenu(); ?
 
     screenChange = false;
   }
 }
 
-void changeScreen(byte increment) {
+void changeScreen(int8_t increment) {
   cycleIncrement(currentScreen, increment, SCREEN_COUNT);
   screenChange = true;
+}
+
+int cycleScreen(int index, int increment, int maximum) {
+  return ((index + 1) + (increment + 1) % maximum;
 }
 
 void screenBacklightHandler(void) {
@@ -148,3 +172,4 @@ void throbberHandler(void) {
 }
 
 /* ------------------------------------------------------------------------- */
+
